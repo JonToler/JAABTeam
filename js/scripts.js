@@ -14,16 +14,17 @@ function Room() {
   this.southPassable = false;
   this.westPassable = false;
   this.eastPassable = false;
-  this.items = [];
+  this.items = ["key","NULL"];
   this.creatures = [];
-  this.interact = function(room, user, item){
-    for (i=0; i < room.items.length; i++){
-      if (room.items[i] === item){
-        user.userInventory[i].push();
-        delete room.items[i];
+}
+
+Room.prototype.interact = function (user, item) {
+      for (i=0; i < this.items.length; i++){
+        if (this.items[i] === item){
+          user.userInventory.push(this.items[i]);
+          delete this.items[i];
+        }
       }
-    } 
-  }
 }
 
 
@@ -40,6 +41,7 @@ $(document).ready(function() {
     $('.this-type').append(newUser.userChar);
     $('.this-health').text(newUser.userHealth);
     $('#user-info').addClass('show');
+
   })
 
 });
