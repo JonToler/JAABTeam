@@ -9,12 +9,13 @@ function User(name, creatureType) {
 };
 
 function Room() {
-  this.narrative = "You enter a room. Dimly lit a fog is crawling in through the cracks on the west wall.";
+  this.narrative = ["You enter a room. Dimly lit a fog is crawling in through the cracks on the west wall."];
+  this.eventNarrative = "eventNarrative";
   this.northPassable = false;
   this.southPassable = false;
   this.westPassable = false;
   this.eastPassable = false;
-  this.items = ["key"];
+  this.items = [];
   this.creatures = [];
 }
 
@@ -26,6 +27,10 @@ Room.prototype.interact = function (user, item) {
     }
   }
 }
+Room.prototype.roomNarrative = function (user, narrative){
+  return this.narrative;
+    }
+
 
 User.prototype.addIntellect = function() {
   if (diceRoll() + this.userIntellect> 3) {
