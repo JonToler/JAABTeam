@@ -1,6 +1,6 @@
-function User(name, gender) {
+function User(name, creatureType) {
   this.userName = name;
-  this.userGender = gender;
+  this.userChar = creatureType;
   this.userStrength = 0;
   this.userIntellect = 0;
   this.userHealth = 10;
