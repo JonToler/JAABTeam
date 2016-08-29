@@ -14,7 +14,7 @@ function Room() {
   this.southPassable = false;
   this.westPassable = false;
   this.eastPassable = false;
-  this.items = ["key","NULL"];
+  this.items = ["key"];
   this.creatures = [];
 }
 
@@ -52,6 +52,7 @@ function diceRoll() {
   return (Math.floor(Math.random() * 6+1));
   console.log()
 }
+
 
 $(document).ready(function() {
   var pass = false;
