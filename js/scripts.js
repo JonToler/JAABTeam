@@ -16,7 +16,16 @@ function Room() {
   this.eastPassable = false;
   this.items = [];
   this.creatures = [];
+  this.interact = function(room, user, item){
+    for (i=0; i < room.items.length; i++){
+      if (room.items[i] === item){
+        user.userInventory[i].push();
+        delete room.items[i];
+      }
+    } 
+  }
 }
+
 
 
 
