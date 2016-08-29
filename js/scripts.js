@@ -14,18 +14,18 @@ function Room() {
   this.southPassable = false;
   this.westPassable = false;
   this.eastPassable = false;
-  this.items = ["key","NULL"];
+  this.items = ["key"];
   this.creatures = [];
-}
-
-Room.prototype.interact = function (user, item) {
+  this.interact = function (user, item) {
       for (i=0; i < this.items.length; i++){
         if (this.items[i] === item){
           user.userInventory.push(this.items[i]);
-          delete this.items[i];
+          this.items.splice(i, 1);
         }
       }
+  }
 }
+
 
 
 
