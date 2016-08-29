@@ -18,50 +18,72 @@ function Room() {
   this.creatures = [];
 }
 
-// function Lockpick() {
-//   this.trait = newUser.addIntellect;
-// }
-
 Room.prototype.interact = function (user, item) {
-      for (i=0; i < this.items.length; i++){
-        if (this.items[i] === item){
-          user.userInventory.push(this.items[i]);
-          delete this.items[i];
-        }
-      }
+  for (i=0; i < this.items.length; i++){
+    if (this.items[i] === item){
+      user.userInventory.push(this.items[i]);
+      this.items.splice(i,1);
+    }
+  }
 }
 
-User.prototype.addStrength = function() {
-  if (interact(newUser) + newUser.userStrength > 3) {
-    newUser.userStrength += 2;
+User.prototype.addIntellect = function() {
+  if (diceRoll() + this.userIntellect> 3) {
+    this.userIntellect += 2;
     alert('you passed!')
   } else {
     alert("try again");
   }
-  return newUser.userStrength;
+  return this.userIntellect;
 }
 
-function interact() {
-  var dice = (Math.floor(Math.random() * 6+1));
-  return dice
+User.prototype.addStrength = function() {
+
+  if (diceRoll() + this.userStrength > 3) {
+    this.userStrength += 2;
+    alert('you passed!')
+  } else {
+    alert("try again");
+  }
+  return this.userStrength;
+}
+
+function diceRoll() {
+  return (Math.floor(Math.random() * 6+1));
+  console.log()
 }
 
 $(document).ready(function() {
   var pass = false;
+  var newUser;
+  var diceRoll;
+  function showScore() {
+    $('.this-health').text(newUser.userHealth);
+    $('.this-strength').text(newUser.userStrength);
+    $('.this-intellect').text(newUser.userIntellect);
+  }
   $('form#begin').click(function(event) {
     event.preventDefault();
     var userName = $('#user-name').val();
     var userChar = $('#user-char').val();
-    var newUser = new User(userName, userChar);
+    newUser = new User(userName, userChar);
     $('form#begin').addClass('hide');
     $('.this-name').append(newUser.userName);
     $('.this-type').append(newUser.userChar);
-    $('.this-health').text(newUser.userHealth);
+    showScore();
     $('#user-info').addClass('show');
     $('#game').addClass('show');
   });
 
-  interact(newUser);
+  $('.option1').click(function() {
+    newUser.addIntellect();
+    console.log(newUser.userIntellect);
+    showScore();
+  });
+  $('.option2').click(function() {
+    newUser.addStrength();
+    console.log(newUser.userStrength);
+    showScore();
+  });
 
-  })
 });
