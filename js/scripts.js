@@ -14,13 +14,22 @@ function Room() {
   this.southPassable = false;
   this.westPassable = false;
   this.eastPassable = false;
-  this.items = [];
+  this.items = ["key","NULL"];
   this.creatures = [];
 }
 
 // function Lockpick() {
 //   this.trait = newUser.addIntellect;
 // }
+
+Room.prototype.interact = function (user, item) {
+      for (i=0; i < this.items.length; i++){
+        if (this.items[i] === item){
+          user.userInventory.push(this.items[i]);
+          delete this.items[i];
+        }
+      }
+}
 
 User.prototype.addStrength = function() {
   if (interact(newUser) + newUser.userStrength > 3) {
@@ -52,7 +61,7 @@ $(document).ready(function() {
     $('#game').addClass('show');
   });
 
-  
   interact(newUser);
 
+  })
 });
