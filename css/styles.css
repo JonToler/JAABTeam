@@ -13,6 +13,27 @@ body {
   position: absolute;
 }
 
+#game {
+  width: 300px;
+  height: 300px;
+  border: 2px solid black;
+  padding: 30px;
+  margin-left:auto;
+  margin-right: auto;
+  display: none;
+  margin-top: 100px;
+}
+
+span {
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+span:hover {
+  color: blue;
+}
+
 .hide {
   display: none;
 }

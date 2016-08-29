@@ -18,10 +18,28 @@ function Room() {
   this.creatures = [];
 }
 
+// function Lockpick() {
+//   this.trait = newUser.addIntellect;
+// }
 
+User.prototype.addStrength = function() {
+  if (interact(newUser) + newUser.userStrength > 3) {
+    newUser.userStrength += 2;
+    alert('you passed!')
+  } else {
+    alert("try again");
+  }
+  return newUser.userStrength;
+}
+
+function interact() {
+  var dice = (Math.floor(Math.random() * 6+1));
+  return dice
+}
 
 $(document).ready(function() {
-  $('form#begin').submit(function(event) {
+  var pass = false;
+  $('form#begin').click(function(event) {
     event.preventDefault();
     var userName = $('#user-name').val();
     var userChar = $('#user-char').val();
@@ -31,6 +49,10 @@ $(document).ready(function() {
     $('.this-type').append(newUser.userChar);
     $('.this-health').text(newUser.userHealth);
     $('#user-info').addClass('show');
-  })
+    $('#game').addClass('show');
+  });
+
+  
+  interact(newUser);
 
 });
