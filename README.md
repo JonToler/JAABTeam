@@ -25,7 +25,7 @@ _NA_
 ## Support and contact details
 * _tolerjonathan@gmail.com_
 * _avksmit2@gmail.com_
-*_ayanapowell1@gmail.com
+*_ayanapowell1@gmail.com_
 *_anthonybottemiller@outlook.com_
 
 

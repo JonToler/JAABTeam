@@ -12,18 +12,24 @@
     <div class="container">
       <form id="begin">
         <div class="form-group">
-          <label for="name">Enter your name:</label>
-          <input id="name" type="text" class="form-control">
+          <label for="user-name">Enter your name:</label>
+          <input id="user-name" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="creatureType">Choose your character:</label>
-          <select id="creatureType">
-            <option value="dragon">Dragon</option>
-            <option value="fairy">Fairy</option>
-            <option value="centaur">Centaur</option>
+          <label for="user-char">Choose your character:</label>
+          <select id="user-char">
+            <option value="Dragon">Dragon</option>
+            <option value="Fairy">Fairy</option>
+            <option value="Centaur">Centaur</option>
           </select>
         </div>
+        <button type="submit" class="btn btn-default">Submit</button>
       </form>
+      <div id="user-info">
+        <div class="this-name">User: </div>
+        <div class="this-type">Type: </div>
+        <div>Health: <span class="this-health"></span></div>
+      </div>
     </div>
   </body>
 </html>
