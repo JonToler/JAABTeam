@@ -4,7 +4,8 @@ body {
   background-image: url('../img/2.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
-  font-size: 24px;
+  font-size: 24px;  
+  background-opacity: 0;
 }
 
 h1 {
@@ -16,12 +17,14 @@ h1 {
   font-weight: 900;
   color: #f2f2f2;
   text-shadow: 4px 4px purple;
+  letter-spacing: 2px;
 }
 
 #begin {
+  display: none;
   width: 50%;
-  height: 400px;
-  padding: 40px;
+  height: 1px;
+  padding: 0px;
   margin-top: 10%;
   margin-left:auto;
   margin-right: auto;
@@ -35,13 +38,18 @@ h1 {
 #begin h2 {
   margin: 0;
   padding-bottom: 20px;
+  padding-top: 20px;
   font-size: 1em;
   text-align: center;
 }
 
+#form-content {
+  display: none;
+}
+
 .form-group {
-  padding: 10px;
-  margin-top: 40px;
+  padding: 0px;
+  margin-top: 20px;
 }
 
 #user-name {
@@ -81,7 +89,6 @@ h1 {
   opacity: 0.9;
   color: white;
   font-family: 'Cutive Mono', monospace;
-
 }
 
 .this-name {
@@ -154,9 +161,13 @@ h1 {
 .narrative {
   background-color: white;
   opacity: 0.7;
-  width: 65%;
+  width: 80%;
   color: black;
   font-style: italic;
+}
+
+#room-inventory {
+  display: none;
 }
 
 #option1,

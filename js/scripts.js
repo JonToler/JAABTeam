@@ -16,9 +16,9 @@ var AvatarImg = ["_img/Dragon.png","_img/fairy.png","_img/centaur.png"];
 var AvatarImgIndex = 0;
 
 function Avatar(dragon,fairy,centaur){
-  this.dragon = "_img/Dragon.png"
-  this.fairy = "_img/fairy.png"
-  this.centaur = "_img/centaur.png"
+  this.dragon = "_img/Dragon.png";
+  this.fairy = "_img/fairy.png";
+  this.centaur = "_img/centaur.png";
 }
 
 function Room() {
@@ -51,10 +51,11 @@ function Item(itemName, itemTrait, itemNarrative) {
   this.itemNarrative = itemNarrative;
 }
 
-function Creature(creatureName, dmgOutput, creatureNarrative) {
+function Creature(creatureName, dmgOutput, creatureNarrative, creatureOptions) {
   this.creatureName = creatureName;
   this.dmgOutput = dmgOutput;
   this.creatureNarrative = creatureNarrative;
+  this.creatureOptions = ["cast spell", "fight", "run"];
 }
 
 Room.prototype.interact = function(userInventory, item) {
