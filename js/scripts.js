@@ -1,7 +1,7 @@
 function User(name, creatureType) {
   this.userName = name;
   this.userChar = creatureType;
-  this.userAvatarImage = Avatar();
+  this.userAvatarImage = this.avatarImgSelector();
   this.userStrength = 0;
   this.userIntellect = 0;
   this.userHealth = 10;
@@ -9,16 +9,8 @@ function User(name, creatureType) {
   this.userInventory = [];
 };
 
-var roomArray= []
-
-var AvatarImg = ["_img/Dragon.png","_img/fairy.png","_img/centaur.png"];
-
-var AvatarImgIndex = 0;
-
-function Avatar(dragon,fairy,centaur){
-  this.dragon = "_img/Dragon.png";
-  this.fairy = "_img/fairy.png";
-  this.centaur = "_img/centaur.png";
+User.prototype.avatarImgSelector = function() {
+  return "img/" + this.userChar.toLowerCase() + ".png";
 }
 
 function Room() {
@@ -191,6 +183,7 @@ $(document).ready(function() {
       $('.this-name').append(newUser.userName);
       $('.this-type').append(newUser.userChar);
       $('.narrative').append(currentRoom.narrative);
+      $('.user-avatar').append("<img src=" + newUser.userAvatarImage + ">");
       showScore();
       $('#user-info').slideDown();
       $('#game').fadeIn('slow');
