@@ -20,7 +20,7 @@ function Avatar(dragon,fairy,centaur){
 }
 
 function Room() {
-  this.narrative = ["You enter a room. Dimly lit a fog is crawling in through the cracks on the west wall."];
+  this.narrative = ["You've entered a dimly lit room with a fog crawling in through the cracks on the west wall. You don't have much time! Search for some tools!"];
   this.eventNarrative = "eventNarrative";
   this.northPassable = false;
   this.southPassable = false;
@@ -99,9 +99,7 @@ Creature.prototype.creatureDiceRoll = function(dmgOutput) {
   return (Math.floor(Math.random() * this.dmgOutput+1));
 };
 
-<<<<<<< HEAD
 /* ------- FRONT END -------- */
-=======
 User.prototype.addTrait = function(trait) {
   if (trait === "intellect") {
     this.userIntellect += 1;
@@ -110,25 +108,12 @@ User.prototype.addTrait = function(trait) {
   }
 };
 
->>>>>>> 82d640642d369883c4091eda12e509c8fafd7079
 $(document).ready(function() {
   var pass = false;
   var newUser;
   var diceRoll;
   var newItem;
   var currentRoom;
-
-  setTimeout(function(){
-    $("#begin").fadeIn("fast");
-    $("#begin").animate({
-      "height":"400px",
-  },700);
-  },1500);
-
-  setTimeout(function() {
-    $('#form-content').show();
-  },3000);
-
 
   function showScore() {
     $('.this-health').text(newUser.userHealth);
@@ -139,27 +124,11 @@ $(document).ready(function() {
 
   function roomInventory() {
     for (i=0;i<currentRoom.items.length;i++) {
+      $('#room-inventory').addClass('show');
       $("#room-inventory select").append("<option>" + i + " " + currentRoom.items[i].itemName + ": " + currentRoom.items[i].itemNarrative + "</option>");
     };
     $('#roomInventory').show();
   };
-
-  $('#begin-button').click(function(event) {
-    event.preventDefault();
-    var userName = $('#user-name').val();
-    var userChar = $('#user-char').val();
-    newUser = new User(userName, userChar);
-    currentRoom = new Room();
-    setTimeout(function() {
-      $('form#begin').fadeOut();
-      $('.this-name').append(newUser.userName);
-      $('.this-type').append(newUser.userChar);
-      $('.narrative p').append(currentRoom.narrative);
-      showScore();
-      $('#user-info').addClass('show');
-      $('#game').addClass('show');
-    },900);
-  });
 
   $('#search').click(function() {
     roomInventory();
@@ -189,4 +158,34 @@ $(document).ready(function() {
   $('.this-scores').click(function() {
     $('#user-score').slideToggle();
   });
+/* ------- Introduction Form (userName, usrCreature) ---------- */
+  setTimeout(function(){
+    $("#begin").fadeIn();
+    $("#begin").animate({
+      "height":"350px",
+  },700);
+  },1500);
+
+  setTimeout(function() {
+    $('#form-content').slideDown(700);
+  },3000);
+/* ------------ Form on click event listener --------- */
+  $('#begin-button').click(function(event) {
+    event.preventDefault();
+    var userName = $('#user-name').val();
+    var userChar = $('#user-char').val();
+    newUser = new User(userName, userChar);
+    currentRoom = new Room();
+    $('#form-content').slideUp(600);
+    $('form#begin').fadeOut(800);
+    setTimeout(function() {
+      $('.this-name').append(newUser.userName);
+      $('.this-type').append(newUser.userChar);
+      $('.narrative').append(currentRoom.narrative);
+      showScore();
+      $('#user-info').slideDown();
+      $('#game').fadeIn('slow');
+    },900);
+  });
+
 });

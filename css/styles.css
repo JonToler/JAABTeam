@@ -5,6 +5,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   font-size: 24px;  
+  background-opacity: 0;
 }
 
 h1 {
@@ -23,7 +24,7 @@ h1 {
   display: none;
   width: 50%;
   height: 1px;
-  padding: 40px;
+  padding: 0px;
   margin-top: 10%;
   margin-left:auto;
   margin-right: auto;
@@ -37,6 +38,7 @@ h1 {
 #begin h2 {
   margin: 0;
   padding-bottom: 20px;
+  padding-top: 20px;
   font-size: 1em;
   text-align: center;
 }
@@ -159,9 +161,13 @@ h1 {
 .narrative {
   background-color: white;
   opacity: 0.7;
-  width: 65%;
+  width: 80%;
   color: black;
   font-style: italic;
+}
+
+#room-inventory {
+  display: none;
 }
 
 #option1,
