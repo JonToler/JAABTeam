@@ -8,14 +8,14 @@ body {
 }
 
 h1 {
+  width: 50%;
   padding-top: 40px;
   padding-bottom: 8px;
-  text-align: center;
   font-family: 'Orbitron', sans-serif;
   font-size: 1.8em;
   font-weight: 900;
   color: #f2f2f2;
-  border-bottom: solid #f2f2f2 2px;
+  text-shadow: 4px 4px purple;
 }
 
 #begin {
@@ -67,46 +67,67 @@ h1 {
 #user-info {
   display: none;
   position: absolute;
-  min-width: 18%;
-  min-height: 400px;
-  right: 50px;
-  top: 30%;
+  min-width: 50%;
+  min-height: 70px;
+  right: 30px;
+  top: 5%;
   padding-left: 10px;
-  border: solid 5px black;
-  background-color: white;
-  opacity: 0.8;
   font-family: 'Orbitron', sans-serif;
   line-height: 4em;
   font-weight: 700;
-  font-size: 0.6em;
+  font-size: 0.7em;
+  letter-spacing: 1px;
+  background-color: black;
+  opacity: 0.9;
+  color: white;
+  font-family: 'Cutive Mono', monospace;
+
+}
+
+.this-name {
+  margin-left: 60px;
+}
+
+.this-type {
+  margin-left: 15%;
+  margin-right: 10%;
+}
+
+.this-scores {
+  color: #1a66ff;
+  font-style: italic;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
 #user-bag {
-  font-size: 0.8em;
+  color: #1a66ff;
+  font-style: italic;
+  margin-left: 1px;
   cursor: pointer;
-  text-decoration: underline;
-  text-align: center;
-  width: 125px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 10px;
-  bottom: 0px;
-
 }
 
+#user-score {
+  display: none;
+  position: absolute;
+  color: white;
+  font-family: 'Cutive Mono', monospace;
+  right: 100px;
+  font-size: 0.8em;
+}
+
+.this-scores:hover,
 #user-bag:hover {
-  color: blue;
+  text-decoration: underline;
 }
 
 #game {
-  padding: 20px;
-  margin-left:auto;
-  margin-right: auto;
   display: none;
   margin-top: 100px;
   color: #f2f2f2;
   font-family: 'Cutive Mono', monospace;
   font-size: 0.9em;
+  margin-left: 20%;
 }
 
 #game img {
@@ -133,10 +154,8 @@ h1 {
 .narrative {
   background-color: white;
   opacity: 0.7;
-  max-width: 70%;
+  width: 65%;
   color: black;
-  padding: 4px;
-  padding-left: 10px;
   font-style: italic;
 }
 
@@ -159,11 +178,6 @@ h1 {
 span {
   font-weight: bold;
   text-align: center;
-  cursor: pointer;
-}
-
-span:hover {
-  color: blue;
 }
 
 .hide {
