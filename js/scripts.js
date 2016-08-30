@@ -150,7 +150,7 @@ $(document).ready(function() {
     $("#room-inventory select").empty();
     $("#user-bag ul").empty();
     newUser.userInventory.forEach(function(item) {
-      $('#user-bag ul').append("<li>" + item.itemName + "</li>");
+      $('#user-bag').append("<li>" + item.itemName + "</li>");
     });
     roomInventory();
     showScore();
@@ -185,10 +185,12 @@ $(document).ready(function() {
   });
 
   $('.this-scores').click(function() {
+    $('#user-bag').slideToggle();
     $('#user-score').slideToggle();
   });
 
   $('#this-bag').click(function() {
+    $('#user-score').slideUp();
     $('#user-bag').slideToggle();
   });
 /* ------- Introduction Form (userName, usrCreature) ---------- */
@@ -215,7 +217,7 @@ $(document).ready(function() {
       $('.this-name').append(newUser.userName);
       $('.this-type').append(newUser.userChar);
       $('.narrative').append(currentRoom.narrative);
-      $('.user-avatar').append("<img src=" + newUser.userAvatarImage + ">");
+      $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
       showScore();
       $('#user-info').slideDown();
       $('#game').fadeIn('slow');

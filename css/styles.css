@@ -8,6 +8,21 @@ body {
   background-opacity: 0;
 }
 
+img {
+  width: 500px;
+  height: auto;
+  object-fit: cover;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+ /* padding-left: 40px;
+  margin-left: 5%;*/
+  display: flex;
+}
+
 h1 {
   width: 50%;
   padding-top: 40px;
@@ -123,6 +138,15 @@ h1 {
   font-size: 0.8em;
 }
 
+#user-bag {
+  display: none;
+  position: absolute;
+  color: white;
+  font-family: 'Cutive Mono', monospace;
+  right: 100px;
+  font-size: 0.8em;
+}
+
 .this-scores:hover,
 #user-bag:hover {
   text-decoration: underline;
@@ -164,6 +188,11 @@ h1 {
   width: 80%;
   color: black;
   font-style: italic;
+  margin-top: 50px;
+}
+
+#search {
+  width: 200px;
 }
 
 #room-inventory {

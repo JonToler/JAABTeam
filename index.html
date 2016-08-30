@@ -37,9 +37,7 @@
         <span class="this-name">Player: </span>
         <span class="this-type">Type: </span>
         <span class="this-scores">Status</span>//
-        <span id="this-bag">Tools<span class="user-bag"></span></span>
-      </div>
-      <div class="user-avatar">
+        <span id="this-bag">Tools</span>
       </div>
       <div id="user-score">
         <div>Health: <span class="this-health"></span></div>
@@ -48,7 +46,9 @@
       </div>
       <div id="user-bag"></div>
       <div id="game">
-        <img src="img/door.png">
+        <div class="user-avatar">
+          <img src="img/door.png">
+        </div>
         <p class="narrative"></p>
         <button id="search" type="button" class="btn btn-default">Search</button>
         <h2 id="option1" class="option">Picklock</h2>
@@ -69,6 +69,8 @@
           <h2 id="option1" class="option">Pick the lock on door</h2>
           <h2 id="option2" class="option">Use hammer to break down door</h2>
         </div>
+        <!--<h2 id="option1" class="option">Picklock</h2>
+        <h2 id="option2" class="option">Barge In</h2>-->
         <div id="room-inventory">
           <h2>Items in room:</h2>
           <select></select>
