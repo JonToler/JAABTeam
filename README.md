@@ -8,7 +8,8 @@
 * _Allow a user to start out in a room and interact with something_
 *_Allow a user to use a Random die roll to determine an outcome for an action. ex: User rolls a 6d gets a [5] then the object door opens.
 #_Allow user to have a group of actions interact,move,search. Ex:user searches the room, output would give object information about a key on the floor.
-*_Allow the user to choose their name and gender
+*_Allow the user to choose their character class. EX: at the start if the character chooses a Centaur a Centaur will appear.
+*_Allow the user to choose their name. EX: Player can enter their and output.
 
 
 
