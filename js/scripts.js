@@ -93,7 +93,7 @@ $(document).ready(function() {
     $('.this-health').text(newUser.userHealth);
     $('.this-strength').text(newUser.userStrength);
     $('.this-intellect').text(newUser.userIntellect);
-    $('.this-bag').append(newUser.userInventory);
+    $('#user-bag').append(newUser.userInventory);
   }
 
   $('#begin-button').click(function(event) {
@@ -121,8 +121,8 @@ $(document).ready(function() {
   });
   
   $('.this-scores').click(function() {
-    $('#user-score').slideDown();
-  })
+    $('#user-score').slideToggle();
+  });
 });
 
 
