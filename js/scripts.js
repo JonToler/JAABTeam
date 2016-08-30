@@ -214,6 +214,7 @@ $(document).ready(function() {
       $('.this-name').append(newUser.userName);
       $('.this-type').append(newUser.userChar);
       $('.narrative').append(currentRoom.narrative);
+      $('.user-avatar').append("<img src=" + newUser.userAvatarImage + ">");
       showScore();
       $('#user-info').slideDown();
       $('#game').fadeIn('slow');
