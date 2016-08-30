@@ -1,12 +1,23 @@
 function User(name, creatureType) {
   this.userName = name;
   this.userChar = creatureType;
+  this.userAvatarImage = Avatar();
   this.userStrength = 0;
   this.userIntellect = 0;
   this.userHealth = 10;
   this.userPosition = [];
   this.userInventory = [];
 };
+
+var AvatarImg = ["_img/Dragon.png","_img/fairy.png","_img/centaur.png"];
+
+var AvatarImgIndex = 0;
+
+function Avatar(dragon,fairy,centaur){
+  this.dragon = "_img/Dragon.png"
+  this.fairy = "_img/fairy.png"
+  this.centaur = "_img/centaur.png"
+}
 
 function Room() {
   this.narrative = ["You enter a room. Dimly lit a fog is crawling in through the cracks on the west wall."];
@@ -62,7 +73,7 @@ Room.prototype.roomNarrative = function(user, narrative){
 User.prototype.addIntellect = function() {
   if (diceRoll() + this.userIntellect > 3) {
     this.userIntellect += 2;
-    alert('you passed!')
+    alert('you passed!');
   } else {
     alert("try again");
   }
@@ -82,12 +93,11 @@ User.prototype.addStrength = function() {
 function diceRoll() {
   return (Math.floor(Math.random() * 6+1));
   console.log()
-}
+};
 
 Creature.prototype.creatureDiceRoll = function(dmgOutput) {
   return (Math.floor(Math.random() * this.dmgOutput+1));
-  console.log()
-}
+};
 
 User.prototype.addTrait = function(trait) {
   if (trait === "intellect") {
@@ -108,7 +118,7 @@ $(document).ready(function() {
     $('.this-health').text(newUser.userHealth);
     $('.this-strength').text(newUser.userStrength);
     $('.this-intellect').text(newUser.userIntellect);
-    $('.this-bag').append(newUser.userInventory);
+    $('#user-bag').append(newUser.userInventory);
   }
 
   function roomInventory() {
@@ -124,14 +134,14 @@ $(document).ready(function() {
     var userChar = $('#user-char').val();
     newUser = new User(userName, userChar);
     currentRoom = new Room();
-    $('form#begin').fadeOut();
     setTimeout(function() {
+      $('form#begin').fadeOut();
       $('.this-name').append(newUser.userName);
       $('.this-type').append(newUser.userChar);
       $('.narrative p').append(currentRoom.narrative);
       showScore();
-    $('#user-info').addClass('show');
-    $('#game').addClass('show');
+      $('#user-info').addClass('show');
+      $('#game').addClass('show');
     },900);
   });
 
@@ -158,5 +168,9 @@ $(document).ready(function() {
   $('#option2').click(function() {
     newUser.addStrength();
     showScore();
+  });
+
+  $('.this-scores').click(function() {
+    $('#user-score').slideToggle();
   });
 });
