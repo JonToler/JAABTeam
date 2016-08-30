@@ -1,6 +1,7 @@
 function User(name, creatureType) {
   this.userName = name;
   this.userChar = creatureType;
+  this.userChar = Avatar();
   this.userStrength = 0;
   this.userIntellect = 0;
   this.userHealth = 10;
@@ -8,6 +9,17 @@ function User(name, creatureType) {
   this.userInventory = [];
 };
 
+var AvatarImg = ["_img/Dragon.png","_img/fairy.png","_img/centaur.png"];
+
+var AvatarImgIndex = 0;
+
+function Avatar(dragon,fairy,centaur){
+  this.dragon = "_img/Dragon.png"
+  this.fairy = "_img/fairy.png"
+  this.centaur = "_img/centaur.png"
+}
+
+ console.log(Avatar);
 function Room() {
   this.narrative = ["You enter a room. Dimly lit a fog is crawling in through the cracks on the west wall."];
   this.eventNarrative = "eventNarrative";
@@ -105,10 +117,14 @@ $(document).ready(function() {
     setTimeout(function() {
       $('.this-name').append(newUser.userName);
       $('.this-type').append(newUser.userChar);
+    $('form#begin').fadeOut();
+    setTimeout(function() {
+      $('.this-name').append(newUser.userName);
+      $('.this-type').append(newUser.userChar[]);
       showScore();
     $('#user-info').addClass('show');
     $('#game').addClass('show');
-    },900); 
+    },900);
   });
 
   $('.option1').click(function() {
@@ -124,10 +140,3 @@ $(document).ready(function() {
     $('#user-score').slideToggle();
   });
 });
-
-
-
-
-
-
-
