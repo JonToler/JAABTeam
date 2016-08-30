@@ -4,7 +4,7 @@ body {
   background-image: url('../img/2.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
-  font-size: 24px;
+  font-size: 24px;  
 }
 
 h1 {
@@ -16,11 +16,13 @@ h1 {
   font-weight: 900;
   color: #f2f2f2;
   text-shadow: 4px 4px purple;
+  letter-spacing: 2px;
 }
 
 #begin {
+  display: none;
   width: 50%;
-  height: 400px;
+  height: 1px;
   padding: 40px;
   margin-top: 10%;
   margin-left:auto;
@@ -39,9 +41,13 @@ h1 {
   text-align: center;
 }
 
+#form-content {
+  display: none;
+}
+
 .form-group {
-  padding: 10px;
-  margin-top: 40px;
+  padding: 0px;
+  margin-top: 20px;
 }
 
 #user-name {
@@ -81,7 +87,6 @@ h1 {
   opacity: 0.9;
   color: white;
   font-family: 'Cutive Mono', monospace;
-
 }
 
 .this-name {

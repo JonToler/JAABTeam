@@ -1,7 +1,7 @@
 function User(name, creatureType) {
   this.userName = name;
   this.userChar = creatureType;
-  this.userChar = Avatar();
+  this.userAvatarImage = Avatar();
   this.userStrength = 0;
   this.userIntellect = 0;
   this.userHealth = 10;
@@ -93,11 +93,24 @@ Creature.prototype.creatureDiceRoll = function(dmgOutput) {
   return (Math.floor(Math.random() * this.dmgOutput+1));
 };
 
+/* ------- FRONT END -------- */
 $(document).ready(function() {
   var pass = false;
   var newUser;
   var diceRoll;
   var newItem;
+
+  setTimeout(function(){
+    $("#begin").fadeIn("fast");
+    $("#begin").animate({
+      "height":"400px",
+  },700);
+  },1500);
+
+  setTimeout(function() {
+    $('#form-content').show();
+  },3000);
+
 
   function showScore() {
     $('.this-health').text(newUser.userHealth);
