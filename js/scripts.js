@@ -121,6 +121,7 @@ $(document).ready(function() {
   };
 
   function roomInventory() {
+    $("#room-inventory select").append("<option>Please select an item</option>")
     for (i=0;i<currentRoom.items.length;i++) {
       $("#room-inventory select").append("<option>" + i + " " + currentRoom.items[i].itemName + ": " + currentRoom.items[i].itemNarrative + "</option>");
     };
@@ -177,7 +178,7 @@ $(document).ready(function() {
     $('#user-score').slideToggle();
   });
 
-  $('#user-bag').click(function() {
+  $('#this-bag').click(function() {
     $('#user-bag').slideToggle();
   });
 });
