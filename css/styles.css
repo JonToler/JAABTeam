@@ -4,12 +4,12 @@ body {
   background-image: url('../img/2.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
-  font-size: 24px;  
+  font-size: 24px;
   background-opacity: 0;
 }
 
 img {
-  width: 500px;
+  width: 400px;
   height: auto;
   object-fit: cover;
   -moz-transform: scaleX(-1);
@@ -18,9 +18,8 @@ img {
   transform: scaleX(-1);
   filter: FlipH;
   -ms-filter: "FlipH";
- /* padding-left: 40px;
-  margin-left: 5%;*/
-  display: flex;
+  display: inline-flex;
+  padding-top: 50px;
 }
 
 h1 {
@@ -161,25 +160,10 @@ h1 {
   margin-left: 20%;
 }
 
-#game img {
-  width: 250px;
-  height: auto;
-  -moz-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
-  filter: FlipH;
-  -ms-filter: "FlipH";
-  display: inline-flex;
-  padding-left: 40px;
-  margin-left: 5%;
-
-}
-
 #game img:nth-child(2) {
-  width: auto;
-  height: 150px;
-  margin-bottom: 100px;
+  width: 200px;
+  height: auto;
+  display: inline-flex;
 }
 
 .narrative {
@@ -197,6 +181,7 @@ h1 {
 
 #room-inventory {
   display: none;
+  margin-top: 75px;
 }
 
 #option1,

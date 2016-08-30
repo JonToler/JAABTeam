@@ -1,7 +1,6 @@
 function User(name, creatureType) {
   this.userName = name;
   this.userChar = creatureType;
-  this.userAvatarImage = Avatar();
   this.userAvatarImage = this.avatarImgSelector();
   this.userStrength = 0;
   this.userIntellect = 0;
@@ -9,25 +8,6 @@ function User(name, creatureType) {
   this.userPosition = [];
   this.userInventory = [];
 };
-
-var roomArray= [];
-
-var AvatarImg = ["_img/Dragon.png","_img/fairy.png","_img/centaur.png"];
-
-var AvatarImgIndex = 0;
-
-function Avatar(dragon,fairy,centaur){
-  this.dragon = "_img/Dragon.png";
-  this.fairy = "_img/fairy.png";
-  this.centaur = "_img/centaur.png";
-// var avatarImg = ["../img/Dragon.png","../img/fairy.png","../img/centaur.png"];
-};
-
-function Door(location, image, locked) {
-  this.location = location;
-  this.image = image;
-  this.locked = true;
-}
 
 User.prototype.avatarImgSelector = function() {
   return "img/" + this.userChar.toLowerCase() + ".png";
@@ -40,7 +20,7 @@ function Room() {
   this.southPassable = false;
   this.westPassable = false;
   this.eastPassable = false;
-  this.doors = [new door("northPassable", "image")];
+  this.doors = [];
   this.items = [
     new Item("lockpick", "intellect", "Select to pick up! It looks awfully rusty!"),
     new Item("hammer", "strength", "Select to pick up! Looks like it's been used a time or two!"),
@@ -53,17 +33,22 @@ function Room() {
   ];
 };
 
+function Door(){
+  this.options = ["pick lock", "use hammer", "barge in"];
+}
+
 function Item(itemName, itemTrait, itemNarrative) {
   this.itemName = itemName;
   this.itemTrait = itemTrait;
   this.itemNarrative = itemNarrative;
-};
+}
 
-function Creature(creatureName, dmgOutput, creatureNarrative) {
+function Creature(creatureName, dmgOutput, creatureNarrative, creatureOptions) {
   this.creatureName = creatureName;
   this.dmgOutput = dmgOutput;
   this.creatureNarrative = creatureNarrative;
-};
+  this.creatureOptions = ["cast spell", "fight", "run"];
+}
 
 Room.prototype.interact = function(userInventory, item) {
   for (i=0; i < this.items.length; i++){
@@ -71,12 +56,12 @@ Room.prototype.interact = function(userInventory, item) {
       userInventory.push(this.items[i]);
       this.items.splice(i, 1);
     }
-  };
-};
+  }
+}
 
 Room.prototype.roomNarrative = function(user, narrative){
   return this.narrative;
-};
+}
 
 User.prototype.addIntellect = function() {
   if (diceRoll() + this.userIntellect > 3) {
@@ -86,7 +71,7 @@ User.prototype.addIntellect = function() {
     alert("try again");
   }
   return this.userIntellect;
-};
+}
 
 User.prototype.addStrength = function() {
   if (diceRoll() + this.userStrength > 3) {
@@ -96,7 +81,7 @@ User.prototype.addStrength = function() {
     alert("try again");
   }
   return this.userStrength;
-};
+}
 
 function diceRoll() {
   return (Math.floor(Math.random() * 6+1));
@@ -107,6 +92,7 @@ Creature.prototype.creatureDiceRoll = function(dmgOutput) {
   return (Math.floor(Math.random() * this.dmgOutput+1));
 };
 
+
 User.prototype.addTrait = function(trait) {
   if (trait === "intellect") {
     this.userIntellect += 1;
@@ -115,10 +101,9 @@ User.prototype.addTrait = function(trait) {
   }
 };
 /* ------- FRONT END -------- */
-var newUser;
-
 $(document).ready(function() {
   var pass = false;
+  var newUser;
   var diceRoll;
   var newItem;
   var currentRoom;
@@ -156,23 +141,6 @@ $(document).ready(function() {
     showScore();
   });
 
-  $('#begin-button').click(function(event) {
-    event.preventDefault();
-    var userName = $('#user-name').val();
-    var userChar = $('#user-char').val();
-    newUser = new User(userName, userChar);
-
-    $('form#begin').fadeOut();
-      setTimeout(function() {
-      $('.this-name').append(newUser.userName);
-      $('.this-type').append(newUser.userChar);
-      $('.user-avatar').append("<img src=" + newUser.userAvatarImage + ">");
-      showScore();
-    $('#user-info').addClass('show');
-    $('#game').addClass('show');
-    },900);
-  });
-
   $('.option').show();
   $('#option1').click(function() {
     newUser.addIntellect();
@@ -185,12 +153,12 @@ $(document).ready(function() {
   });
 
   $('.this-scores').click(function() {
-    $('#user-bag').slideToggle();
+    $('#user-bag').hide();
     $('#user-score').slideToggle();
   });
 
   $('#this-bag').click(function() {
-    $('#user-score').slideUp();
+    $('#user-score').hide();
     $('#user-bag').slideToggle();
   });
 /* ------- Introduction Form (userName, usrCreature) ---------- */
