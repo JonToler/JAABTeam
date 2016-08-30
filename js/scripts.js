@@ -19,7 +19,6 @@ function Avatar(dragon,fairy,centaur){
   this.centaur = "_img/centaur.png"
 }
 
- console.log(Avatar);
 function Room() {
   this.narrative = ["You enter a room. Dimly lit a fog is crawling in through the cracks on the west wall."];
   this.eventNarrative = "eventNarrative";
@@ -61,14 +60,14 @@ Room.prototype.interact = function (user, item) {
   }
 }
 
-Room.prototype.roomNarrative = function (user, narrative){
+Room.prototype.roomNarrative = function (user, narrative) {
   return this.narrative;
 }
 
 User.prototype.addIntellect = function() {
   if (diceRoll() + this.userIntellect > 3) {
     this.userIntellect += 2;
-    alert('you passed!')
+    alert('you passed!');
   } else {
     alert("try again");
   }
@@ -88,12 +87,11 @@ User.prototype.addStrength = function() {
 function diceRoll() {
   return (Math.floor(Math.random() * 6+1));
   console.log()
-}
+};
 
 Creature.prototype.creatureDiceRoll = function(dmgOutput) {
   return (Math.floor(Math.random() * this.dmgOutput+1));
-  console.log()
-}
+};
 
 $(document).ready(function() {
   var pass = false;
@@ -115,15 +113,12 @@ $(document).ready(function() {
     newUser = new User(userName, userChar);
     $('form#begin').fadeOut();
     setTimeout(function() {
+      $('form#begin').fadeOut();
       $('.this-name').append(newUser.userName);
       $('.this-type').append(newUser.userChar);
-    $('form#begin').fadeOut();
-    setTimeout(function() {
-      $('.this-name').append(newUser.userName);
-      $('.this-type').append(newUser.userChar[]);
       showScore();
-    $('#user-info').addClass('show');
-    $('#game').addClass('show');
+      $('#user-info').addClass('show');
+      $('#game').addClass('show');
     },900);
   });
 
