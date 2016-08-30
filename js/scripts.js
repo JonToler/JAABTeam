@@ -2,6 +2,7 @@ function User(name, creatureType) {
   this.userName = name;
   this.userChar = creatureType;
   this.userAvatarImage = Avatar();
+  this.userAvatarImage = this.avatarImgSelector();
   this.userStrength = 0;
   this.userIntellect = 0;
   this.userHealth = 10;
@@ -19,6 +20,10 @@ function Avatar(dragon,fairy,centaur){
   this.dragon = "_img/Dragon.png";
   this.fairy = "_img/fairy.png";
   this.centaur = "_img/centaur.png";
+// var avatarImg = ["../img/Dragon.png","../img/fairy.png","../img/centaur.png"];
+
+User.prototype.avatarImgSelector = function() {
+  return "img/" + this.userChar.toLowerCase() + ".png";
 }
 
 function Room() {
@@ -100,7 +105,6 @@ Creature.prototype.creatureDiceRoll = function(dmgOutput) {
   return (Math.floor(Math.random() * this.dmgOutput+1));
 };
 
-
 User.prototype.addTrait = function(trait) {
   if (trait === "intellect") {
     this.userIntellect += 1;
@@ -109,9 +113,10 @@ User.prototype.addTrait = function(trait) {
   }
 };
 /* ------- FRONT END -------- */
+var newUser;
+
 $(document).ready(function() {
   var pass = false;
-  var newUser;
   var diceRoll;
   var newItem;
   var currentRoom;
@@ -147,6 +152,21 @@ $(document).ready(function() {
     });
     roomInventory();
     showScore();
+  $('#begin-button').click(function(event) {
+    event.preventDefault();
+    var userName = $('#user-name').val();
+    var userChar = $('#user-char').val();
+    newUser = new User(userName, userChar);
+
+    $('form#begin').fadeOut();
+      setTimeout(function() {
+      $('.this-name').append(newUser.userName);
+      $('.this-type').append(newUser.userChar);
+      $('.user-avatar').append("<img src=" + newUser.userAvatarImage + ">");
+      showScore();
+    $('#user-info').addClass('show');
+    $('#game').addClass('show');
+    },900);
   });
 
   $('.option').show();
