@@ -1,6 +1,6 @@
 function User(name, creatureType) {
   this.userName = name;
-  this.userChar = creatureType;
+  this.userChar = [];
   this.userStrength = 0;
   this.userIntellect = 0;
   this.userHealth = 10;
@@ -88,23 +88,29 @@ $(document).ready(function() {
   var newUser;
   var diceRoll;
   var newItem;
+
   function showScore() {
     $('.this-health').text(newUser.userHealth);
     $('.this-strength').text(newUser.userStrength);
     $('.this-intellect').text(newUser.userIntellect);
     $('.this-bag').append(newUser.userInventory);
   }
-  $('form#begin').click(function(event) {
+
+  $('#begin-button').click(function(event) {
     event.preventDefault();
     var userName = $('#user-name').val();
     var userChar = $('#user-char').val();
     newUser = new User(userName, userChar);
-    $('form#begin').addClass('hide');
-    $('.this-name').append(newUser.userName);
-    $('.this-type').append(newUser.userChar);
-    showScore();
+    newUser.userChar = newUser.userChar.push(userChar);
+    $('form#begin').fadeOut();
+    setTimeout(function() {
+      $('.this-name').append(newUser.userName);
+      $('.this-type').append(newUser.userChar[0]);
+      $('#game').append(newUser.userChar[1]);
+      showScore();
     $('#user-info').addClass('show');
     $('#game').addClass('show');
+    },900); 
   });
 
   $('.option1').click(function() {
