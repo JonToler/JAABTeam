@@ -40,7 +40,7 @@ function Room() {
   this.southPassable = false;
   this.westPassable = false;
   this.eastPassable = false;
-  this.doors = [new door("northPassable", "image")];
+  this.doors = [new Door("northPassable", "image")];
   this.items = [
     new Item("lockpick", "intellect", "Select to pick up! It looks awfully rusty!"),
     new Item("hammer", "strength", "Select to pick up! Looks like it's been used a time or two!"),
@@ -115,9 +115,8 @@ User.prototype.addTrait = function(trait) {
   }
 };
 /* ------- FRONT END -------- */
-var newUser;
-
 $(document).ready(function() {
+  var newUser;
   var pass = false;
   var diceRoll;
   var newItem;
@@ -150,27 +149,10 @@ $(document).ready(function() {
     $("#room-inventory select").empty();
     $("#user-bag ul").empty();
     newUser.userInventory.forEach(function(item) {
-      $('#user-bag').append("<li>" + item.itemName + "</li>");
+      $('#user-bag ul').append("<li>" + item.itemName + "</li>");
     });
     roomInventory();
     showScore();
-  });
-
-  $('#begin-button').click(function(event) {
-    event.preventDefault();
-    var userName = $('#user-name').val();
-    var userChar = $('#user-char').val();
-    newUser = new User(userName, userChar);
-
-    $('form#begin').fadeOut();
-      setTimeout(function() {
-      $('.this-name').append(newUser.userName);
-      $('.this-type').append(newUser.userChar);
-      $('.user-avatar').append("<img src=" + newUser.userAvatarImage + ">");
-      showScore();
-    $('#user-info').addClass('show');
-    $('#game').addClass('show');
-    },900);
   });
 
   $('.option').show();
