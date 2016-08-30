@@ -9,6 +9,8 @@ function User(name, creatureType) {
   this.userInventory = [];
 };
 
+var roomArray= []
+
 var AvatarImg = ["_img/Dragon.png","_img/fairy.png","_img/centaur.png"];
 
 var AvatarImgIndex = 0;
@@ -59,9 +61,7 @@ Room.prototype.interact = function(userInventory, item) {
   for (i=0; i < this.items.length; i++){
     if (this.items[i].itemName === item){
       userInventory.push(this.items[i]);
-      console.log(userInventory);
       this.items.splice(i, 1);
-      console.log(this.items);
     }
   }
 }
@@ -119,10 +119,10 @@ $(document).ready(function() {
     $('.this-health').text(newUser.userHealth);
     $('.this-strength').text(newUser.userStrength);
     $('.this-intellect').text(newUser.userIntellect);
-    $('#user-bag').append(newUser.userInventory);
-  }
+  };
 
   function roomInventory() {
+    $("#room-inventory select").append("<option>Please select an item</option>")
     for (i=0;i<currentRoom.items.length;i++) {
       $('#room-inventory').addClass('show');
       $("#room-inventory select").append("<option>" + i + " " + currentRoom.items[i].itemName + ": " + currentRoom.items[i].itemNarrative + "</option>");
@@ -140,6 +140,10 @@ $(document).ready(function() {
     newUser.addTrait(currentRoom.items[itemSelected].itemTrait);
     currentRoom.interact(newUser.userInventory, currentRoom.items[itemSelected].itemName);
     $("#room-inventory select").empty();
+    $("#user-bag ul").empty();
+    newUser.userInventory.forEach(function(item) {
+      $('#user-bag ul').append("<li>" + item.itemName + "</li>");
+    });
     roomInventory();
     showScore();
   });
@@ -188,4 +192,7 @@ $(document).ready(function() {
     },900);
   });
 
+  $('#this-bag').click(function() {
+    $('#user-bag').slideToggle();
+  });
 });
