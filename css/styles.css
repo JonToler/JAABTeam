@@ -53,7 +53,7 @@ h1 {
 #user-name {
   width: 60%;
   margin-left: 20%;
-  color: #410f70; 
+  color: #410f70;
 }
 
 #user-char {
@@ -64,7 +64,7 @@ h1 {
 #begin button {
   width: 80%;
   margin-left: 10%;
-  margin-top: 45px; 
+  margin-top: 45px;
   background-color: black;
   opacity: 0.8;
   color: white;
@@ -164,18 +164,19 @@ h1 {
   font-style: italic;
 }
 
-.option1, 
-.option2 {
+#option1,
+#option2 {
   display: inline-flex;
   font-size: 1.2em;
   padding-left: 150px;
   font-family: 'Cutive Mono', monospace;
   color: black;
   cursor: pointer;
+  display: none;
 }
 
-.option1:hover,
-.option2:hover {
+#option1:hover,
+#option2:hover {
   text-decoration: underline;
   color: purple;
 }
@@ -194,5 +195,3 @@ span {
   display: block;
   transition: 1s ease;
 }
-
-
