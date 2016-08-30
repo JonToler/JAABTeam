@@ -23,6 +23,12 @@ function Avatar(dragon,fairy,centaur){
 // var avatarImg = ["../img/Dragon.png","../img/fairy.png","../img/centaur.png"];
 };
 
+function Door(location, image, locked) {
+  this.location = location;
+  this.image = image;
+  this.locked = true;
+}
+
 User.prototype.avatarImgSelector = function() {
   return "img/" + this.userChar.toLowerCase() + ".png";
 }
@@ -34,7 +40,7 @@ function Room() {
   this.southPassable = false;
   this.westPassable = false;
   this.eastPassable = false;
-  this.doors = [];
+  this.doors = [new door("northPassable", "image")];
   this.items = [
     new Item("lockpick", "intellect", "Select to pick up! It looks awfully rusty!"),
     new Item("hammer", "strength", "Select to pick up! Looks like it's been used a time or two!"),
@@ -47,21 +53,16 @@ function Room() {
   ];
 };
 
-function Door(){
-  this.options = ["pick lock", "use hammer", "barge in"];
-};
-
 function Item(itemName, itemTrait, itemNarrative) {
   this.itemName = itemName;
   this.itemTrait = itemTrait;
   this.itemNarrative = itemNarrative;
 };
 
-function Creature(creatureName, dmgOutput, creatureNarrative, creatureOptions) {
+function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.creatureName = creatureName;
   this.dmgOutput = dmgOutput;
   this.creatureNarrative = creatureNarrative;
-  this.creatureOptions = ["cast spell", "fight", "run"];
 };
 
 Room.prototype.interact = function(userInventory, item) {
