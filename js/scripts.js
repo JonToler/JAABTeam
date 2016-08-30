@@ -99,7 +99,7 @@ Creature.prototype.creatureDiceRoll = function(dmgOutput) {
   return (Math.floor(Math.random() * this.dmgOutput+1));
 };
 
-/* ------- FRONT END -------- */
+
 User.prototype.addTrait = function(trait) {
   if (trait === "intellect") {
     this.userIntellect += 1;
@@ -107,7 +107,7 @@ User.prototype.addTrait = function(trait) {
     this.userStrength += 1;
   }
 };
-
+/* ------- FRONT END -------- */
 $(document).ready(function() {
   var pass = false;
   var newUser;
