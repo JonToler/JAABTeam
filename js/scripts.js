@@ -31,9 +31,9 @@ function Room() {
   this.eastPassable = false;
   this.doors = [new Door("northPassable", "image")];
   this.items = [
-    new Item("lockpick", "intellect", "Select to pick up! It looks awfully rusty!"),
-    new Item("hammer", "strength", "Select to pick up! Looks like it's been used a time or two!"),
-    new Item("book", "intellect", "Select to pick up! Difficult, but you can read a few lines under the thick dust!")
+    new Item("Lockpick", "intellect", "Select to pick up! It looks awfully rusty!"),
+    new Item("Hammer", "strength", "Select to pick up! Looks like it's been used a time or two!"),
+    new Item("Book", "intellect", "Select to pick up! Difficult, but you can read a few lines under the thick dust!")
   ];
   this.creatures = [
     new Creature("ghost" , 4, "OoOo a ghost has appeared! Cast a spell or fight it?"),
@@ -185,29 +185,9 @@ $(document).ready(function() {
   setTimeout(function() {
     $('#form-content').slideDown(700);
   },3000);
-/* ------------ Form on click event listener --------- */
-  $('#begin-button').click(function(event) {
-    event.preventDefault();
-    var userName = $('#user-name').val();
-    var userChar = $('#user-char').val();
-    newUser = new User(userName, userChar);
-    currentRoom = new Room();
-    $('#form-content').slideUp(400);
-    $('form#begin').fadeOut(600);
-    setTimeout(function() {
-      $('.this-name').append(newUser.userName);
-      $('.this-type').append(newUser.userChar);
-      $('.narrative').append(currentRoom.narrative);
-      $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
-      $('.monsters').prepend("<img src="  + newUser.monsterImage + ">");
-      showScore();
-      $('#user-info').slideDown();
-      $('#game').fadeIn('slow');
-    },900);
-  });
+
 
   $('#search').click(function() {
-    roomInventory();
     // When search is clicked, doorNarrative.show();
     //This is a placeholder:
     $('.narrative, #search').fadeOut();
@@ -245,8 +225,9 @@ $(document).ready(function() {
   $('#option1').click(function() {
     $('.event-log ul').append("<li>" + currentRoom.doors[0].pickLock(newUser) + "</li>");
     if (!currentRoom.doors[0].locked) {
-      $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
-      $('.event-outcome ul').text("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
+      $('.narrative').text(currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative);
+      $('.narrative').fadeIn();
+      $('.narrative_2').fadeOut();
       monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
       $('#interact-options').fadeOut();
       $('#encounter-options').css({
@@ -259,8 +240,9 @@ $(document).ready(function() {
   $('#option2').click(function() {
     $('.event-log ul').append("<li>" + currentRoom.doors[0].breakDoor(newUser) + "</li>");
     if (!currentRoom.doors[0].locked) {
-      $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
-      $('.event-outcome ul').text("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
+      $('.narrative').text(currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative);
+      $('.narrative').fadeIn();
+      $('.narrative_2').fadeOut();
       monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
       $('#interact-options').fadeOut();
       $('#encounter-options').css({
@@ -288,20 +270,21 @@ $(document).ready(function() {
   setTimeout(function() {
     $('#form-content').slideDown(700);
   },3000);
-/* ------------ Form on click event listener --------- */
+  /* ------------ Form on click event listener --------- */
   $('#begin-button').click(function(event) {
     event.preventDefault();
     var userName = $('#user-name').val();
     var userChar = $('#user-char').val();
     newUser = new User(userName, userChar);
     currentRoom = new Room();
-    $('#form-content').slideUp(600);
-    $('form#begin').fadeOut(800);
+    $('#form-content').slideUp(400);
+    $('form#begin').fadeOut(600);
     setTimeout(function() {
       $('.this-name').append(newUser.userName);
       $('.this-type').append(newUser.userChar);
-      $('.narrative').append(currentRoom.narrative);
+      $('.narrative').text(currentRoom.narrative);
       $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
+      $('.monsters').prepend("<img src="  + newUser.monsterImage + ">");
       showScore();
       $('#user-info').slideDown();
       $('#game').fadeIn('slow');
