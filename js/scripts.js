@@ -36,8 +36,29 @@ function Room() {
   ];
 };
 
-function Door(){
-  this.options = ["pick lock", "use hammer", "barge in"];
+function Door(location, image){
+  this.locked = true;
+  this.location = location;
+  this.image = image;
+  this.pickLock = function(user){
+    if (diceRoll() <= user.userIntellect){
+      this.locked = false;
+      user.addIntellect();
+      return "The door is now unlocked! You pass through and....";
+    } else {
+      return "Doh! You have failed to unlock the door.";
+    }
+  };
+
+  this.breakDoor = function(user){
+    if (diceRoll() <= user.userStrength){
+      this.locked = false;
+      user.addStrength();
+      return "You have broken the door!";
+    } else {
+      return "Ah snap! You failed to break the door!";
+    }
+  }
 };
 
 function Item(itemName, itemTrait, itemNarrative) {
@@ -57,13 +78,18 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.attackCreature = function(user, attackType){
     var hit = false;
     if (attackType === "strength"){
-      if (diceRoll() >= user.userStrength){hit = true;}
+      if (diceRoll() <= user.userStrength){hit = true; user.addIntellect();}
     }
     else{
-      if (diceRoll() >= user.userIntellect){hit = true;}
+      if (diceRoll() <= user.userIntellect){hit = true; user.addStrength();}
     }
-    if (hit){this.power -= 1;}
-    return hit;
+    if (hit){
+      this.power -= 1;
+      return "Hit!";
+    }
+    else {
+      return "Miss!"
+    }
   }
 };
 
@@ -92,23 +118,11 @@ Room.prototype.roomNarrative = function(user, narrative){
 };
 
 User.prototype.addIntellect = function() {
-  if (diceRoll() + this.userIntellect > 3) {
-    this.userIntellect += 2;
-    alert('you passed!');
-  } else {
-    alert("try again");
-  }
-  return this.userIntellect;
-}
+  this.userIntellect += 1;
+};
 
 User.prototype.addStrength = function() {
-  if (diceRoll() + this.userStrength > 3) {
-    this.userStrength += 2;
-    alert('you passed!')
-  } else {
-    alert("try again");
-  }
-  return this.userStrength;
+  this.userStrength += 1;
 };
 
 function diceRoll() {
@@ -125,6 +139,7 @@ User.prototype.addTrait = function(trait) {
     this.userStrength += 1;
   }
 };
+
 /* ------- FRONT END -------- */
 $(document).ready(function() {
   var newUser;
@@ -169,12 +184,18 @@ $(document).ready(function() {
 
   $('.option').show();
   $('#option1').click(function() {
-    newUser.addIntellect();
+    $('#event-log ul').append("<li>" + currentRoom.doors[1].pickLock(newUser) + "</li>");
+    if (!currentRoom.doors[1].isLocked) {
+      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative) + "</li>");
+    };
     showScore();
   });
 
   $('#option2').click(function() {
-    newUser.addStrength();
+    $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
+    if (!currentRoom.doors[1].isLocked) {
+      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative) + "</li>");
+    };
     showScore();
   });
 
