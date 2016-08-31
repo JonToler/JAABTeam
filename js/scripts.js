@@ -25,9 +25,9 @@ function Room() {
   this.eastPassable = false;
   this.doors = [new Door("northPassable", "image")];
   this.items = [
-    new Item("Lockpick", "intellect", "It looks awfully rusty!"),
-    new Item("Hammer", "strength", "Looks like it's been used a time or two!"),
-    new Item("Book", "intellect", "Difficult, but you can read a few lines under the thick dust!")
+    new Item("lockpick", "intellect", "Select to pick up! It looks awfully rusty!"),
+    new Item("hammer", "strength", "Select to pick up! Looks like it's been used a time or two!"),
+    new Item("book", "intellect", "Select to pick up! Difficult, but you can read a few lines under the thick dust!")
   ];
   this.creatures = [
     new Creature("ghost" , 4, "OoOo a ghost has appeared! Cast a spell or fight it?"),
@@ -74,7 +74,7 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.power = dmgOutput;
   this.creatureNarrative = creatureNarrative;
   this.isDead = function() {if (this.power <= 0){return true} else {return false};};
- // this.monsterImage = this.monsterImgSelector();
+  this.monsterImage = this.monsterImgSelector();
   this.attackCreature = function(user, attackType){
     var hit = false;
     if (attackType === "strength"){
@@ -88,7 +88,7 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
       return "Hit!";
     }
     else {
-      return "Miss!"
+      return "Miss!";
     }
   }
 };
@@ -159,23 +159,13 @@ $(document).ready(function() {
     $("#room-inventory select").append("<option>Please select an item</option>")
     for (i=0;i<currentRoom.items.length;i++) {
       $('#room-inventory').addClass('show');
-      $("#room-inventory select").append("<option>" + "<div id='index'>" + i + "</div>" + currentRoom.items[i].itemName + ": " + currentRoom.items[i].itemNarrative + "</option>");
+      $("#room-inventory select").append("<option>" + i + " " + currentRoom.items[i].itemName + ": " + currentRoom.items[i].itemNarrative + "</option>");
     };
-    $('#room-inventory').addClass('show');
+    $('#roomInventory').show();
   };
 
   $('#search').click(function() {
-    // When search is clicked, doorNarrative.show();
-    //This is a placeholder:
-    $('.narrative, #search').fadeOut();
-   // $('#search').fadeOut();
-    setTimeout(function() {
-      $('.narrative_2').show();
-      $('#door-interact').show();
-    }, 900);
-    setTimeout(function() {
-      roomInventory();
-    }, 1200);
+    roomInventory();
   });
 
   $("#room-inventory select").change(function(){
@@ -186,20 +176,11 @@ $(document).ready(function() {
     $("#room-inventory select").empty();
     $("#user-bag ul").empty();
     newUser.userInventory.forEach(function(item) {
-      $('#user-bag').hide();
       $('#user-bag ul').append("<li>" + item.itemName + "</li>");
-      $('#user-bag').slideDown();
     });
     roomInventory();
     showScore();
   });
-
-  $('#door-interact').click(function() {
-    $('#room-inventory').removeClass('show');
-    $('#interact-options').css({
-      'display':'block'
-    });
-  })
 
   $('.option').show();
   $('#option1').click(function() {
@@ -213,8 +194,7 @@ $(document).ready(function() {
   $('#option2').click(function() {
     $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
     if (!currentRoom.doors[1].isLocked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
-
+      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative) + "</li>");
     };
     showScore();
   });
@@ -253,7 +233,6 @@ $(document).ready(function() {
       $('.this-type').append(newUser.userChar);
       $('.narrative').append(currentRoom.narrative);
       $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
-      $('.monsters').prepend("<img src="  + newUser.monsterImage + ">");
       showScore();
       $('#user-info').slideDown();
       $('#game').fadeIn('slow');
