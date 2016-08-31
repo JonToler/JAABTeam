@@ -44,7 +44,7 @@ function Door(location, image){
     if (diceRoll() <= user.userIntellect){
       this.locked = false;
       user.addIntellect();
-      return "The door is now unlocked!";
+      return "The door is now unlocked! You pass through and....";
     } else {
       return "Doh! You have failed to unlock the door.";
     }
@@ -86,7 +86,7 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
     if (hit){
       this.power -= 1;
       return "Hit!";
-}
+    }
     else {
       return "Miss!"
     }
@@ -185,11 +185,17 @@ $(document).ready(function() {
   $('.option').show();
   $('#option1').click(function() {
     $('#event-log ul').append("<li>" + currentRoom.doors[1].pickLock(newUser) + "</li>");
+    if (!currentRoom.doors[1].isLocked) {
+      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative) + "</li>");
+    };
     showScore();
   });
 
   $('#option2').click(function() {
     $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
+    if (!currentRoom.doors[1].isLocked) {
+      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative) + "</li>");
+    };
     showScore();
   });
 
