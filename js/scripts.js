@@ -203,16 +203,17 @@ $(document).ready(function() {
 
   $('.option').show();
   $('#option1').click(function() {
+    debugger;
     $('#event-log ul').append("<li>" + currentRoom.doors[1].pickLock(newUser) + "</li>");
-    if (!currentRoom.doors[1].isLocked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative) + "</li>");
+    if (!currentRoom.doors[1].locked) {
+      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
     };
     showScore();
   });
 
   $('#option2').click(function() {
     $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
-    if (!currentRoom.doors[1].isLocked) {
+    if (!currentRoom.doors[1].locked) {
       $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
 
     };
