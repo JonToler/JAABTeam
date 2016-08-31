@@ -22,9 +22,9 @@ function Room() {
   this.eastPassable = false;
   this.doors = [new Door("northPassable", "image")];
   this.items = [
-    new Item("lockpick", "intellect", "Select to pick up! It looks awfully rusty!"),
-    new Item("hammer", "strength", "Select to pick up! Looks like it's been used a time or two!"),
-    new Item("book", "intellect", "Select to pick up! Difficult, but you can read a few lines under the thick dust!")
+    new Item("Lockpick", "intellect", "It looks awfully rusty!"),
+    new Item("Hammer", "strength", "Looks like it's been used a time or two!"),
+    new Item("Book", "intellect", "Difficult, but you can read a few lines under the thick dust!")
   ];
   this.creatures = [
     new Creature("ghost" , 4, "OoOo a ghost has appeared! Cast a spell or fight it?"),
@@ -119,13 +119,23 @@ $(document).ready(function() {
     $("#room-inventory select").append("<option>Please select an item</option>")
     for (i=0;i<currentRoom.items.length;i++) {
       $('#room-inventory').addClass('show');
-      $("#room-inventory select").append("<option>" + i + " " + currentRoom.items[i].itemName + ": " + currentRoom.items[i].itemNarrative + "</option>");
+      $("#room-inventory select").append("<option>" + "<div id='index'>" + i + "</div>" + currentRoom.items[i].itemName + ": " + currentRoom.items[i].itemNarrative + "</option>");
     };
     $('#roomInventory').show();
   };
 
   $('#search').click(function() {
-    roomInventory();
+    // When search is clicked, doorNarrative.show(); 
+    //This is a placeholder: 
+    $('.narrative, #search').fadeOut();
+   // $('#search').fadeOut();
+    setTimeout(function() {
+      $('.narrative_2').show();
+      $('#object-image img').show();
+    }, 900);
+    setTimeout(function() {
+      roomInventory();
+    }, 1200);
   });
 
   $("#room-inventory select").change(function(){
@@ -136,10 +146,19 @@ $(document).ready(function() {
     $("#room-inventory select").empty();
     $("#user-bag ul").empty();
     newUser.userInventory.forEach(function(item) {
+      $('#user-bag').hide();
       $('#user-bag ul').append("<li>" + item.itemName + "</li>");
+      $('#user-bag').slideDown();
     });
     roomInventory();
     showScore();
+  });
+
+  $('#object-image').click(function() {
+    $('#interact-options').css({
+      'display':'block'
+    });
+    $('#room-inventory').hide();
   });
 
   $('.option').show();
