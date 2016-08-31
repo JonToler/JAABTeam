@@ -43,12 +43,28 @@ function Item(itemName, itemTrait, itemNarrative) {
   this.itemNarrative = itemNarrative;
 }
 
-function Creature(creatureName, dmgOutput, creatureNarrative, creatureOptions) {
+function Creature(creatureName, dmgOutput, creatureNarrative,) {
   this.creatureName = creatureName;
-  this.dmgOutput = dmgOutput;
+  this.power = dmgOutput;
   this.creatureNarrative = creatureNarrative;
-  this.creatureOptions = ["cast spell", "fight", "run"];
-}
+  this.isDead = function(){if (this.power =< 0;){return true}{else return false};};
+  this.attackCreature = function(user, attackType){
+    var hit = false;
+    if (attackType === "strength"){
+      if (diceRoll() >= user.userStrength){hit = true;}
+    }
+    else{
+      if (diceRoll() >= user.userIntellect){hit = true;}
+    }
+    if (hit){this.power -= 1;}
+    return hit;
+  }
+
+
+Creature.prototype.creatureDiceRoll = function(dmgOutput) {
+  return (Math.floor(Math.random() * this.power+1));
+};
+
 
 Room.prototype.interact = function(userInventory, item) {
   for (i=0; i < this.items.length; i++){
@@ -88,9 +104,6 @@ function diceRoll() {
   console.log()
 };
 
-Creature.prototype.creatureDiceRoll = function(dmgOutput) {
-  return (Math.floor(Math.random() * this.dmgOutput+1));
-};
 
 
 User.prototype.addTrait = function(trait) {
