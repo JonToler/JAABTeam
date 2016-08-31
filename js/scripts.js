@@ -9,6 +9,16 @@ function User(name, creatureType) {
   this.userPosition = [];
   this.userInventory = [];
   this.isDead = function() {if (this.health <= 0){return true} else {return false};};
+  this.hasItem = function(item) {
+    for (i=0; i<this.userInventory.length; i++) {
+      if (this.userInventory[i].itemName===item){
+        return true;
+    }
+      else {
+        return false;
+      }
+    }
+  }
 };
 /*---avatar---*/
 User.prototype.avatarImgSelector = function() {
@@ -34,49 +44,40 @@ function Room() {
   ];
 };
 
-function pickLock(user){
-  if (diceRoll() <= user.userIntellect) {
-    this.locked = false;
-    user.addIntellect();
-    return "The door is now unlocked! You pass through and....";
-  } else {
-    return "Doh! You have failed to unlock the door.";
-  }
-};
-
-function breakDoor(user){
-    if (diceRoll() <= user.userStrength){
-      this.locked = false;
-      user.addStrength();
-      return "You have broken the door!";
-    } else {
-      return "Ah snap! You failed to break the door!";
-    }
-  }
-
 function Door(location, image){
   this.locked = true;
   this.location = location;
   this.image = image;
   this.pickLock = function(user){
-    if (diceRoll() <= user.userIntellect) {
-      this.locked = false;
-      user.addIntellect();
-      return "The door is now unlocked! You pass through and....";
-    } else {
-      return "Doh! You have failed to unlock the door.";
+    if (user.hasItem("Lockpick")){
+      if (diceRoll() <= user.userIntellect) {
+        this.locked = false;
+        user.addIntellect();
+        return "The door is now unlocked! You pass through and....";
+      } else {
+        return "Doh! You have failed to unlock the door.";
+      }
+    }
+    else {
+      return "You don't have a lockpick"
     }
   };
 
   this.breakDoor = function(user){
-    if (diceRoll() <= user.userStrength){
-      this.locked = false;
-      user.addStrength();
-      return "You have broken the door!";
-    } else {
-      return "Ah snap! You failed to break the door!";
+    if (user.hasItem("Hammer")){
+      if (diceRoll() <= user.userStrength){
+        this.locked = false;
+        user.addStrength();
+        return "You have broken the door!";
+      }
+      else {
+        return "Ah snap! You failed to break the door!";
+      }
     }
-  }
+    else {
+      return "You don't have a hammer"
+    }
+};
 };
 
 function Item(itemName, itemTrait, itemNarrative) {
@@ -127,7 +128,7 @@ Room.prototype.interact = function(userInventory, item) {
   };
 };
 
-Room.prototype.roomNarrative = function(user, narrative) { 
+Room.prototype.roomNarrative = function(user, narrative) {
   return this.narrative;
 };
 
@@ -148,18 +149,17 @@ User.prototype.addTrait = function(trait) {
   if (trait === "intellect") {
     this.userIntellect += 1;
   } else if (trait === "strength") {
-    this.userStrength += 1;
+    this.userStrength += 2;
   }
 };
 
 /* ------- FRONT END -------- */
 $(document).ready(function() {
-  var newUser;
   var pass = false;
-  var newUser;
+  // var newUser = new User;
   var diceRoll;
   var newItem;
-  var currentRoom;
+  // var currentRoom = new Room;
 
   function showScore() {
     $('.this-health').text(newUser.userHealth);
@@ -224,7 +224,7 @@ $(document).ready(function() {
 
   $("#room-inventory select").change(function(){
     var itemSelected = ($("#room-inventory select option:selected").val()).substring(0,1);
-    alert("Congratulations! You have gained 1 " + currentRoom.items[itemSelected].itemTrait + "!");
+    $(".event-log ul").append("<li>Congratulations! You have gained " + currentRoom.items[itemSelected].itemTrait + "!</li>");
     newUser.addTrait(currentRoom.items[itemSelected].itemTrait);
     currentRoom.interact(newUser.userInventory, currentRoom.items[itemSelected].itemName);
     $("#room-inventory select").empty();
@@ -246,17 +246,19 @@ $(document).ready(function() {
   })
 
   $('#option1').click(function() {
-    $('.event-log ul').append("<li>" + pickLock(newUser) + "</li>");
-    if (!pickLock(newUser).locked) {
+    $('.event-log ul').append("<li>" + currentRoom.doors[0].pickLock(newUser) + "</li>");
+    if (!currentRoom.doors[0].locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
+      $('#interact-options').fadeOut();
     };
     showScore();
   });
 
   $('#option2').click(function() {
-    $('.event-log ul').append("<li>" + breakDoor(newUser) + "</li>");
-    if (!breakDoor(newUser).locked) {
+    $('.event-log ul').append("<li>" + currentRoom.doors[0].breakDoor(newUser) + "</li>");
+    if (!currentRoom.doors[0].locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
+      $('#interact-options').toggle();
     };
     showScore();
   });
