@@ -7,11 +7,12 @@ function User(name, creatureType) {
   this.userHealth = 10;
   this.userPosition = [];
   this.userInventory = [];
+  this.isDead = function() {if (this.health <= 0){return true} else {return false};};
 };
 
 User.prototype.avatarImgSelector = function() {
   return "img/" + this.userChar.toLowerCase() + ".png";
-}
+};
 
 function Room() {
   this.narrative = ["You've entered a dimly lit room with a fog crawling in through the cracks on the west wall. You don't have much time! Search for some tools!"];
@@ -35,19 +36,19 @@ function Room() {
 
 function Door(){
   this.options = ["pick lock", "use hammer", "barge in"];
-}
+};
 
 function Item(itemName, itemTrait, itemNarrative) {
   this.itemName = itemName;
   this.itemTrait = itemTrait;
   this.itemNarrative = itemNarrative;
-}
+};
 
-function Creature(creatureName, dmgOutput, creatureNarrative,) {
+function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.creatureName = creatureName;
   this.power = dmgOutput;
   this.creatureNarrative = creatureNarrative;
-  this.isDead = function(){if (this.power =< 0;){return true}{else return false};};
+  this.isDead = function() {if (this.power <= 0){return true} else {return false};};
   this.attackCreature = function(user, attackType){
     var hit = false;
     if (attackType === "strength"){
@@ -59,6 +60,7 @@ function Creature(creatureName, dmgOutput, creatureNarrative,) {
     if (hit){this.power -= 1;}
     return hit;
   }
+};
 
 
 Creature.prototype.creatureDiceRoll = function(dmgOutput) {
@@ -72,12 +74,12 @@ Room.prototype.interact = function(userInventory, item) {
       userInventory.push(this.items[i]);
       this.items.splice(i, 1);
     }
-  }
-}
+  };
+};
 
 Room.prototype.roomNarrative = function(user, narrative){
   return this.narrative;
-}
+};
 
 User.prototype.addIntellect = function() {
   if (diceRoll() + this.userIntellect > 3) {
@@ -97,7 +99,7 @@ User.prototype.addStrength = function() {
     alert("try again");
   }
   return this.userStrength;
-}
+};
 
 function diceRoll() {
   return (Math.floor(Math.random() * 6+1));
