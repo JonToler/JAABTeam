@@ -74,7 +74,7 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.power = dmgOutput;
   this.creatureNarrative = creatureNarrative;
   this.isDead = function() {if (this.power <= 0){return true} else {return false};};
-  this.monsterImage = this.monsterImgSelector();
+  // this.monsterImage = this.monsterImgSelector();
   this.attackCreature = function(user, attackType){
     var hit = false;
     if (attackType === "strength"){
@@ -186,7 +186,7 @@ $(document).ready(function() {
   $('#option1').click(function() {
     $('#event-log ul').append("<li>" + currentRoom.doors[1].pickLock(newUser) + "</li>");
     if (!currentRoom.doors[1].isLocked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative) + "</li>");
+      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
     };
     showScore();
   });
@@ -194,7 +194,7 @@ $(document).ready(function() {
   $('#option2').click(function() {
     $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
     if (!currentRoom.doors[1].isLocked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative) + "</li>");
+      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
     };
     showScore();
   });
