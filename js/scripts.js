@@ -111,8 +111,8 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
   }
 };
 
-Creature.prototype.creatureDiceRoll = function(dmgOutput) {
-  return (Math.floor(Math.random() * this.power+1));
+Room.prototype.creatureDiceRoll = function() {
+  return (Math.floor(Math.random() * this.creatures.length+1));
 };
 
 User.prototype.monsterImgSelector = function() {
@@ -160,6 +160,7 @@ $(document).ready(function() {
   var diceRoll;
   var newItem;
   // var currentRoom = new Room;
+  var monster = "";
 
   function showScore() {
     $('.this-health').text(newUser.userHealth);
@@ -216,7 +217,9 @@ $(document).ready(function() {
   $('#option1').click(function() {
     $('.event-log ul').append("<li>" + currentRoom.doors[0].pickLock(newUser) + "</li>");
     if (!currentRoom.doors[0].locked) {
-      $('.event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
+      $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
+      monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
+      console.log(monster);
       $('#interact-options').fadeOut();
     };
     showScore();
@@ -225,11 +228,17 @@ $(document).ready(function() {
   $('#option2').click(function() {
     $('.event-log ul').append("<li>" + currentRoom.doors[0].breakDoor(newUser) + "</li>");
     if (!currentRoom.doors[0].locked) {
-      $('.event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
-      $('#interact-options').toggle();
+      $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
+      monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
+      console.log(monster);
+      $('#interact-options').fadeOut();
     };
     showScore();
   });
+
+  $("#option3").click(function(){
+    $('.event-log ul').append("<li>" + currentRoom.creatures[2].pickLock(newUser) + "</li>");
+  })
 
   $('.this-scores').click(function() {
     $('#user-bag').hide();
