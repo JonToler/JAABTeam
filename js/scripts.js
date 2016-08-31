@@ -14,8 +14,6 @@ function User(name, creatureType) {
 User.prototype.avatarImgSelector = function() {
   return "img/avatar/" + this.userChar.toLowerCase() + ".png";
 }
-
-
 function Room() {
   this.narrative = ["You've entered a dimly lit room with a fog crawling in through the cracks on the west wall. You don't have much time! Search for some tools!"];
   this.eventNarrative = "eventNarrative";
@@ -36,12 +34,32 @@ function Room() {
   ];
 };
 
+function pickLock(user){
+  if (diceRoll() <= user.userIntellect) {
+    this.locked = false;
+    user.addIntellect();
+    return "The door is now unlocked! You pass through and....";
+  } else {
+    return "Doh! You have failed to unlock the door.";
+  }
+};
+
+function breakDoor(user){
+    if (diceRoll() <= user.userStrength){
+      this.locked = false;
+      user.addStrength();
+      return "You have broken the door!";
+    } else {
+      return "Ah snap! You failed to break the door!";
+    }
+  }
+
 function Door(location, image){
   this.locked = true;
   this.location = location;
   this.image = image;
   this.pickLock = function(user){
-    if (diceRoll() <= user.userIntellect){
+    if (diceRoll() <= user.userIntellect) {
       this.locked = false;
       user.addIntellect();
       return "The door is now unlocked! You pass through and....";
@@ -66,7 +84,6 @@ function Item(itemName, itemTrait, itemNarrative) {
   this.itemTrait = itemTrait;
   this.itemNarrative = itemNarrative;
 };
-
 
 /*---monsters---*/
 function Creature(creatureName, dmgOutput, creatureNarrative) {
@@ -93,16 +110,13 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
   }
 };
 
-
 Creature.prototype.creatureDiceRoll = function(dmgOutput) {
   return (Math.floor(Math.random() * this.power+1));
 };
 
-
 User.prototype.monsterImgSelector = function() {
   return "img/monsters/" + this.creatureName.toLowerCase() + ".png";
 }
-
 /*---Rooms---*/
 Room.prototype.interact = function(userInventory, item) {
   for (i=0; i < this.items.length; i++){
@@ -113,7 +127,7 @@ Room.prototype.interact = function(userInventory, item) {
   };
 };
 
-Room.prototype.roomNarrative = function(user, narrative){
+Room.prototype.roomNarrative = function(user, narrative) {
   return this.narrative;
 };
 
@@ -129,8 +143,6 @@ function diceRoll() {
   return (Math.floor(Math.random() * 6+1));
   console.log()
 };
-
-
 
 User.prototype.addTrait = function(trait) {
   if (trait === "intellect") {
@@ -201,21 +213,18 @@ $(document).ready(function() {
     });
   })
 
-  $('.option').show();
   $('#option1').click(function() {
-    debugger;
-    $('#event-log ul').append("<li>" + currentRoom.doors[1].pickLock(newUser) + "</li>");
-    if (!currentRoom.doors[1].locked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
+    $('.event-log ul').append("<li>" + pickLock(newUser) + "</li>");
+    if (!pickLock(newUser).locked) {
+      $('.event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
     };
     showScore();
   });
 
   $('#option2').click(function() {
-    $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
-    if (!currentRoom.doors[1].locked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
-
+    $('.event-log ul').append("<li>" + breakDoor(newUser) + "</li>");
+    if (!breakDoor(newUser).locked) {
+      $('.event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
     };
     showScore();
   });
