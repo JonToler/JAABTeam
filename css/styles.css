@@ -9,7 +9,7 @@ body {
 }
 
 img {
-  width: 400px;
+  max-width: 400px;
   height: auto;
   object-fit: cover;
   -moz-transform: scaleX(-1);
@@ -19,7 +19,7 @@ img {
   filter: FlipH;
   -ms-filter: "FlipH";
   display: inline-flex;
-  padding-top: 50px;
+  padding-top: 0px;
 }
 
 h1 {
@@ -95,7 +95,7 @@ span {
   display: none;
   position: absolute;
   min-width: 50%;
-  min-height: 70px;
+  max-height: 70px;
   right: 30px;
   top: 5%;
   padding-left: 10px;
@@ -140,34 +140,58 @@ span {
   cursor: pointer;
 }
 
-#user-score {
-  display: none;
-  position: absolute;
-  color: white;
-  font-family: 'Cutive Mono', monospace;
-  right: 100px;
-  font-size: 0.8em;
-}
-
-#user-bag {
-  display: none;
-  position: absolute;
-  color: white;
-  font-family: 'Cutive Mono', monospace;
-  right: 100px;
-  font-size: 0.8em;
-}
-
 .this-scores:hover,
 #this-bag:hover,
 #this-log:hover {
   text-decoration: underline;
 }
 
-.event-log {
+#user-score {
+  display: none;
+  position: absolute;
   color: white;
-  font-size: 0.6em;
   font-family: 'Cutive Mono', monospace;
+  right: 200px;
+  font-size: 0.8em;
+}
+
+
+#user-bag {
+  display: none;
+  position: absolute;
+  color: white;
+  font-family: 'Cutive Mono', monospace;
+  right: 150px;
+  font-size: 0.8em;
+}
+
+.event-log {
+  display: none;
+  position: absolute;
+  top: 20%;
+  max-width: 50%;
+  margin-left: 25%;
+  background-color: white;
+  z-index: 5;
+  color: black;
+  font-family: 'Cutive Mono', monospace;
+  font-size: 0.5em;
+  padding: 5px;
+}
+
+.event-log p {
+  text-align: center;
+  cursor: pointer;
+  color: red;
+}
+
+.event-log p:hover {
+  text-decoration: underline;
+}
+
+.event-log h3 {
+  text-align: center;
+  text-decoration: underline;
 }
 
 #game {
@@ -228,6 +252,26 @@ span {
 
 #option1,
 #option2 {
+  display: inline-flex;
+  font-size: 1em;
+  padding-left: 150px;
+  font-family: 'Cutive Mono', monospace;
+  color: white;
+  cursor: pointer;
+}
+
+#encounter-options{
+  display: none;
+  z-index: 5;
+  font-size: 1.2em;
+}
+
+#encounter-options h3:hover {
+  text-decoration: underline;
+}
+
+#option3,
+#option4 {
   display: inline-flex;
   font-size: 1em;
   padding-left: 150px;

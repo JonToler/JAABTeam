@@ -13,11 +13,9 @@ function User(name, creatureType) {
     for (i=0; i<this.userInventory.length; i++) {
       if (this.userInventory[i].itemName===item){
         return true;
-    }
-      else {
-        return false;
       }
     }
+    return false;
   }
 };
 /*---avatar---*/
@@ -59,7 +57,7 @@ function Door(location, image){
       }
     }
     else {
-      return "You don't have a lockpick"
+      return "You didn't pick up the lockpick, bonehead!"
     }
   };
 
@@ -75,7 +73,7 @@ function Door(location, image){
       }
     }
     else {
-      return "You don't have a hammer"
+      return "You didn't pick up the hammer, bonehead!"
     }
 };
 };
@@ -112,7 +110,7 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
 };
 
 Room.prototype.creatureDiceRoll = function() {
-  return (Math.floor(Math.random() * this.creatures.length+1));
+  return (Math.floor(Math.random() * this.creatures.length));
 };
 
 User.prototype.monsterImgSelector = function() {
@@ -142,7 +140,6 @@ User.prototype.addStrength = function() {
 
 function diceRoll() {
   return (Math.floor(Math.random() * 6+1));
-  console.log()
 };
 
 User.prototype.addTrait = function(trait) {
@@ -177,6 +174,38 @@ $(document).ready(function() {
     $('#room-inventory').addClass('show');
   };
 
+  /* ------- Introduction Form (userName, usrCreature) ---------- */
+  setTimeout(function(){
+    $("#begin").fadeIn();
+    $("#begin").animate({
+      "height":"350px",
+  },500);
+  },1500);
+
+  setTimeout(function() {
+    $('#form-content').slideDown(700);
+  },3000);
+/* ------------ Form on click event listener --------- */
+  $('#begin-button').click(function(event) {
+    event.preventDefault();
+    var userName = $('#user-name').val();
+    var userChar = $('#user-char').val();
+    newUser = new User(userName, userChar);
+    currentRoom = new Room();
+    $('#form-content').slideUp(400);
+    $('form#begin').fadeOut(600);
+    setTimeout(function() {
+      $('.this-name').append(newUser.userName);
+      $('.this-type').append(newUser.userChar);
+      $('.narrative').append(currentRoom.narrative);
+      $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
+      $('.monsters').prepend("<img src="  + newUser.monsterImage + ">");
+      showScore();
+      $('#user-info').slideDown();
+      $('#game').fadeIn('slow');
+    },900);
+  });
+
   $('#search').click(function() {
     // When search is clicked, doorNarrative.show();
     //This is a placeholder:
@@ -193,7 +222,7 @@ $(document).ready(function() {
 
   $("#room-inventory select").change(function(){
     var itemSelected = ($("#room-inventory select option:selected").val()).substring(0,1);
-    $(".event-log ul").append("<li>Congratulations! You have gained " + currentRoom.items[itemSelected].itemTrait + "!</li>");
+    alert("Congratulations! You have gained " + currentRoom.items[itemSelected].itemTrait + "!");
     newUser.addTrait(currentRoom.items[itemSelected].itemTrait);
     currentRoom.interact(newUser.userInventory, currentRoom.items[itemSelected].itemName);
     $("#room-inventory select").empty();
@@ -219,8 +248,10 @@ $(document).ready(function() {
     if (!currentRoom.doors[0].locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
       monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
-      console.log(monster);
       $('#interact-options').fadeOut();
+      $('#encounter-options').css({
+        'display':'block'
+      });
     };
     showScore();
   });
@@ -230,14 +261,17 @@ $(document).ready(function() {
     if (!currentRoom.doors[0].locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
       monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
-      console.log(monster);
       $('#interact-options').fadeOut();
+      $('#encounter-options').css({
+        'display':'block'
+      });
     };
     showScore();
   });
 
   $("#option3").click(function(){
-    $('.event-log ul').append("<li>" + currentRoom.creatures[2].pickLock(newUser) + "</li>");
+    $('.event-log ul').append("<li>" +  + "</li>");
+  
   })
 
   $('.this-scores').click(function() {
@@ -249,35 +283,10 @@ $(document).ready(function() {
     $('#user-score').hide();
     $('#user-bag').slideToggle();
   });
-/* ------- Introduction Form (userName, usrCreature) ---------- */
-  setTimeout(function(){
-    $("#begin").fadeIn();
-    $("#begin").animate({
-      "height":"350px",
-  },700);
-  },1500);
 
-  setTimeout(function() {
-    $('#form-content').slideDown(700);
-  },3000);
-/* ------------ Form on click event listener --------- */
-  $('#begin-button').click(function(event) {
-    event.preventDefault();
-    var userName = $('#user-name').val();
-    var userChar = $('#user-char').val();
-    newUser = new User(userName, userChar);
-    currentRoom = new Room();
-    $('#form-content').slideUp(600);
-    $('form#begin').fadeOut(800);
-    setTimeout(function() {
-      $('.this-name').append(newUser.userName);
-      $('.this-type').append(newUser.userChar);
-      $('.narrative').append(currentRoom.narrative);
-      $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
-      $('.monsters').prepend("<img src="  + newUser.monsterImage + ">");
-      showScore();
-      $('#user-info').slideDown();
-      $('#game').fadeIn('slow');
-    },900);
+  $('#this-log, .event-log p').click(function() {
+    $('#user-bag, #user-score').hide();
+    $('.event-log').fadeToggle("fast");
+    $('#game').fadeToggle("fast");
   });
 });
