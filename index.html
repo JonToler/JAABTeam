@@ -15,7 +15,8 @@
   <body>
     <div class="container">
       <h1>JAABteam!</h1>
-      <form id="begin" class="row">
+  <!-- Form for user input -->
+     <form id="begin" class="row">
         <div id="form-content">
           <h2 class="col-md-12">Pick Your Character</h2>
           <div class="form-group">
@@ -29,40 +30,50 @@
               <option value="Fairy">Fairy</option>
               <option value="Centaur">Centaur</option>
             </select>
-          </div>
+          </div>          
           <button id="begin-button" type="type" class="btn btn-default" class="col-md-12">Submit</button>
         </div>
-      </form>
+      </form> 
+  <!-- VISIBLE user information, top bar -->
       <div id="user-info">
         <span class="this-name">Player: </span>
         <span class="this-type">Type: </span>
         <span class="this-scores">Status</span>//
         <span id="this-bag">Tools</span>
       </div>
+  <!-- HIDDEN user scores // showScore(); -->
       <div id="user-score">
         <div>Health: <span class="this-health"></span></div>
         <div>Strength: <span class="this-strength"></span></div>
         <div>Intellect: <span class="this-intellect"></span></div>
       </div>
+  <!-- HIDDEN user bag // room.prototype.interact(); -->
       <div id="user-bag">
         <ul></ul>
       </div>
+  <!-- Start of game -->
       <div id="game">
-        /*---userAvatarImage---*/
-        <div class="user-avatar">
-          <img src="img/door.png">
+    <!---userAvatarImage-->
+   <!-- Items and objects in the room // roomInventory(); -->
+        <div id="room-inventory">
+          <h2>Items in room:</h2>
+          <select></select>
         </div>
-        /*---monsterAppears---*/
+        <div class="user-avatar">
+          <div id="object-image">
+            <img src="img/door.png">
+          </div>
+        </div>
+        <!--monsterAppears-->
         <div class="monsters">
         </div>
         <p class="narrative"></p>
         <button id="search" type="button" class="btn btn-default">Search</button>
-        <h2 id="option1" class="option">Pick door lock</h2>
-        <h2 id="option2" class="option">Use hammer to break door</h2>
-      </div>
-      <div id="room-inventory">
-        <h2>Items in room:</h2>
-        <select></select>
+        <p class="narrative_2">Once you get what you can, see if you can get through that door over there. But quick! The unknown is lurking... *Click on door to see your options.</p>
+        <div id="interact-options">
+          <h3 id="option1" class="option">Pick lock</h3>
+          <h3 id="option2" class="option">Use hammer and break it down</h3>
+        </div>
       </div>
     </div>
   </body>
