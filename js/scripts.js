@@ -1,3 +1,4 @@
+/*---backend---*/
 function User(name, creatureType) {
   this.userName = name;
   this.userChar = creatureType;
@@ -9,10 +10,16 @@ function User(name, creatureType) {
   this.userInventory = [];
   this.isDead = function() {if (this.health <= 0){return true} else {return false};};
 };
-
+/*---avatar---*/
 User.prototype.avatarImgSelector = function() {
+<<<<<<< HEAD
   return "img/" + this.userChar.toLowerCase() + ".png";
 };
+=======
+  return "img/avatar/" + this.userChar.toLowerCase() + ".png";
+}
+>>>>>>> 31bed39a1dd5fd8d9483773298a80b8dcae10348
+
 
 function Room() {
   this.narrative = ["You've entered a dimly lit room with a fog crawling in through the cracks on the west wall. You don't have much time! Search for some tools!"];
@@ -42,12 +49,18 @@ function Item(itemName, itemTrait, itemNarrative) {
   this.itemName = itemName;
   this.itemTrait = itemTrait;
   this.itemNarrative = itemNarrative;
+<<<<<<< HEAD
 };
 
+=======
+}
+/*---monsters---*/
+>>>>>>> 31bed39a1dd5fd8d9483773298a80b8dcae10348
 function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.creatureName = creatureName;
   this.power = dmgOutput;
   this.creatureNarrative = creatureNarrative;
+<<<<<<< HEAD
   this.isDead = function() {if (this.power <= 0){return true} else {return false};};
   this.attackCreature = function(user, attackType){
     var hit = false;
@@ -67,7 +80,16 @@ Creature.prototype.creatureDiceRoll = function(dmgOutput) {
   return (Math.floor(Math.random() * this.power+1));
 };
 
+=======
+  this.monsterImage = this.monsterImgSelector();
+}
 
+User.prototype.monsterImgSelector = function() {
+  return "img/monsters/" + this.creatureName.toLowerCase() + ".png";
+}
+>>>>>>> 31bed39a1dd5fd8d9483773298a80b8dcae10348
+
+/*---Rooms---*/
 Room.prototype.interact = function(userInventory, item) {
   for (i=0; i < this.items.length; i++){
     if (this.items[i].itemName === item){
