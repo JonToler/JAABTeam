@@ -10,7 +10,7 @@ function User(name, creatureType) {
 };
 
 User.prototype.avatarImgSelector = function() {
-  return "img/" + this.userChar.toLowerCase() + ".png";
+  return "img/avatar/" + this.userChar.toLowerCase() + ".png";
 }
 
 function Room() {
@@ -43,11 +43,10 @@ function Item(itemName, itemTrait, itemNarrative) {
   this.itemNarrative = itemNarrative;
 }
 
-function Creature(creatureName, dmgOutput, creatureNarrative, creatureOptions) {
+function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.creatureName = creatureName;
   this.dmgOutput = dmgOutput;
   this.creatureNarrative = creatureNarrative;
-  this.creatureOptions = ["cast spell", "fight", "run"];
 }
 
 Room.prototype.interact = function(userInventory, item) {
