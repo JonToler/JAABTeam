@@ -1,34 +1,28 @@
 #
-#### _An awesome text adventure_
+#### _An awesome text JAAB adventure_
 
 #### By _**Jon Toler, Angie Smith, Anthony Bottemiller, Ayana Powell**_
 
 ## Behaviors
 #####
-* _Allow a user to start out in a room and interact with something_
 *_Allow a user to use a Random die roll to determine an outcome for an action. ex: User rolls a 6d gets a [5] then the object door opens.
 #_Allow user to have a group of actions interact,move,search. Ex:user searches the room, output would give object information about a key on the floor.
 *_Allow the user to choose their character class. EX: at the start if the character chooses a Centaur a Centaur will appear.
 *_Allow the user to choose their name. EX: Player can enter their and output.
-
-
+*_Allow the user to interact with world objects. EX: the user clicks on door and has an option to use a lockpick to open the door.
 
 ## Setup/Installation Requirements for leap year detector
 * _Clone this repository to your desktop_
 * _Open index.html in the browser of your choosing_
 
-
-
 ## Known Bugs
 _NA_
-
 
 ## Support and contact details
 * _tolerjonathan@gmail.com_
 * _avksmit2@gmail.com_
 *_ayanapowell1@gmail.com_
 *_anthonybottemiller@outlook.com_
-
 
 ## Technologies Used
 _HTML,

@@ -15,7 +15,6 @@ User.prototype.avatarImgSelector = function() {
   return "img/avatar/" + this.userChar.toLowerCase() + ".png";
 }
 
-
 function Room() {
   this.narrative = ["You've entered a dimly lit room with a fog crawling in through the cracks on the west wall. You don't have much time! Search for some tools!"];
   this.eventNarrative = "eventNarrative";
@@ -46,14 +45,13 @@ function Item(itemName, itemTrait, itemNarrative) {
   this.itemNarrative = itemNarrative;
 };
 
-
 /*---monsters---*/
 function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.creatureName = creatureName;
   this.power = dmgOutput;
   this.creatureNarrative = creatureNarrative;
   this.isDead = function() {if (this.power <= 0){return true} else {return false};};
-  this.monsterImage = this.monsterImgSelector();
+  // this.monsterImage = this.monsterImgSelector();
   this.attackCreature = function(user, attackType){
     var hit = false;
     if (attackType === "strength"){
@@ -67,16 +65,15 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
   }
 };
 
-
 Creature.prototype.creatureDiceRoll = function(dmgOutput) {
   return (Math.floor(Math.random() * this.power+1));
 };
-
 
 User.prototype.monsterImgSelector = function() {
   return "img/monsters/" + this.creatureName.toLowerCase() + ".png";
 }
 
+}
 /*---Rooms---*/
 Room.prototype.interact = function(userInventory, item) {
   for (i=0; i < this.items.length; i++){
@@ -115,8 +112,6 @@ function diceRoll() {
   return (Math.floor(Math.random() * 6+1));
   console.log()
 };
-
-
 
 User.prototype.addTrait = function(trait) {
   if (trait === "intellect") {
@@ -212,7 +207,7 @@ $(document).ready(function() {
       $('.this-type').append(newUser.userChar);
       $('.narrative').append(currentRoom.narrative);
       $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
-      $('.monsters').prepend("<img src=" + newUser.userAvatarImage + ">");
+      $('.monsters').prepend("<img src=" + newUser.monsterImage + ">");
       showScore();
       $('#user-info').slideDown();
       $('#game').fadeIn('slow');
