@@ -9,13 +9,21 @@ function User(name, creatureType) {
   this.userPosition = [];
   this.userInventory = [];
   this.isDead = function() {if (this.health <= 0){return true} else {return false};};
+  this.hasItem = function(item) {
+    for (i=0; i<this.userInventory.length; i++) {
+      if (this.userInventory[i].itemName===item){
+        return true;
+    }
+      else {
+        return false;
+      }
+    }
+  }
 };
 /*---avatar---*/
 User.prototype.avatarImgSelector = function() {
   return "img/avatar/" + this.userChar.toLowerCase() + ".png";
 }
-
-
 function Room() {
   this.narrative = ["You've entered a dimly lit room with a fog crawling in through the cracks on the west wall. You don't have much time! Search for some tools!"];
   this.eventNarrative = "eventNarrative";
@@ -41,24 +49,35 @@ function Door(location, image){
   this.location = location;
   this.image = image;
   this.pickLock = function(user){
-    if (diceRoll() <= user.userIntellect){
-      this.locked = false;
-      user.addIntellect();
-      return "The door is now unlocked! You pass through and....";
-    } else {
-      return "Doh! You have failed to unlock the door.";
+    if (user.hasItem("Lockpick")){
+      if (diceRoll() <= user.userIntellect) {
+        this.locked = false;
+        user.addIntellect();
+        return "The door is now unlocked! You pass through and....";
+      } else {
+        return "Doh! You have failed to unlock the door.";
+      }
+    }
+    else {
+      return "You don't have a lockpick"
     }
   };
 
   this.breakDoor = function(user){
-    if (diceRoll() <= user.userStrength){
-      this.locked = false;
-      user.addStrength();
-      return "You have broken the door!";
-    } else {
-      return "Ah snap! You failed to break the door!";
+    if (user.hasItem("Hammer")){
+      if (diceRoll() <= user.userStrength){
+        this.locked = false;
+        user.addStrength();
+        return "You have broken the door!";
+      }
+      else {
+        return "Ah snap! You failed to break the door!";
+      }
     }
-  }
+    else {
+      return "You don't have a hammer"
+    }
+};
 };
 
 function Item(itemName, itemTrait, itemNarrative) {
@@ -66,7 +85,6 @@ function Item(itemName, itemTrait, itemNarrative) {
   this.itemTrait = itemTrait;
   this.itemNarrative = itemNarrative;
 };
-
 
 /*---monsters---*/
 function Creature(creatureName, dmgOutput, creatureNarrative) {
@@ -93,16 +111,13 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
   }
 };
 
-
-Creature.prototype.creatureDiceRoll = function(dmgOutput) {
-  return (Math.floor(Math.random() * this.power+1));
+Room.prototype.creatureDiceRoll = function() {
+  return (Math.floor(Math.random() * this.creatures.length+1));
 };
-
 
 User.prototype.monsterImgSelector = function() {
   return "img/monsters/" + this.creatureName.toLowerCase() + ".png";
 }
-
 /*---Rooms---*/
 Room.prototype.interact = function(userInventory, item) {
   for (i=0; i < this.items.length; i++){
@@ -113,7 +128,7 @@ Room.prototype.interact = function(userInventory, item) {
   };
 };
 
-Room.prototype.roomNarrative = function(user, narrative){
+Room.prototype.roomNarrative = function(user, narrative) {
   return this.narrative;
 };
 
@@ -130,24 +145,22 @@ function diceRoll() {
   console.log()
 };
 
-
-
 User.prototype.addTrait = function(trait) {
   if (trait === "intellect") {
     this.userIntellect += 1;
   } else if (trait === "strength") {
-    this.userStrength += 1;
+    this.userStrength += 2;
   }
 };
 
 /* ------- FRONT END -------- */
 $(document).ready(function() {
-  var newUser;
   var pass = false;
-  var newUser;
+  // var newUser = new User;
   var diceRoll;
   var newItem;
-  var currentRoom;
+  // var currentRoom = new Room;
+  var monster = "";
 
   function showScore() {
     $('.this-health').text(newUser.userHealth);
@@ -170,7 +183,7 @@ $(document).ready(function() {
 
   $("#room-inventory select").change(function(){
     var itemSelected = ($("#room-inventory select option:selected").val()).substring(0,1);
-    alert("Congratulations! You have gained 1 " + currentRoom.items[itemSelected].itemTrait + "!");
+    $(".event-log ul").append("<li>Congratulations! You have gained " + currentRoom.items[itemSelected].itemTrait + "!</li>");
     newUser.addTrait(currentRoom.items[itemSelected].itemTrait);
     currentRoom.interact(newUser.userInventory, currentRoom.items[itemSelected].itemName);
     $("#room-inventory select").empty();
@@ -182,22 +195,52 @@ $(document).ready(function() {
     showScore();
   });
 
+<<<<<<< HEAD
   $('.option').show();
   $('#option1').click(function() {
     $('#event-log ul').append("<li>" + currentRoom.doors[1].pickLock(newUser) + "</li>");
     if (!currentRoom.doors[1].isLocked) {
       $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
+=======
+  $('#door-interact').click(function() {
+    $('#room-inventory').removeClass('show');
+    $('#interact-options').css({
+      'display':'block'
+    });
+  })
+
+  $('#option1').click(function() {
+    $('.event-log ul').append("<li>" + currentRoom.doors[0].pickLock(newUser) + "</li>");
+    if (!currentRoom.doors[0].locked) {
+      $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
+      monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
+      console.log(monster);
+      $('#interact-options').fadeOut();
+>>>>>>> 41a9d7519f59ace2c069c8251be89bbb4970b5d4
     };
     showScore();
   });
 
   $('#option2').click(function() {
+<<<<<<< HEAD
     $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
     if (!currentRoom.doors[1].isLocked) {
       $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
+=======
+    $('.event-log ul').append("<li>" + currentRoom.doors[0].breakDoor(newUser) + "</li>");
+    if (!currentRoom.doors[0].locked) {
+      $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
+      monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
+      console.log(monster);
+      $('#interact-options').fadeOut();
+>>>>>>> 41a9d7519f59ace2c069c8251be89bbb4970b5d4
     };
     showScore();
   });
+
+  $("#option3").click(function(){
+    $('.event-log ul').append("<li>" + currentRoom.creatures[2].pickLock(newUser) + "</li>");
+  })
 
   $('.this-scores').click(function() {
     $('#user-bag').hide();

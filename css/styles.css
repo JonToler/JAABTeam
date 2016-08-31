@@ -133,6 +133,13 @@ span {
   cursor: pointer;
 }
 
+#this-log {
+  color: #1a66ff;
+  font-style: italic;
+  margin-left: 1px;
+  cursor: pointer;
+}
+
 #user-score {
   display: none;
   position: absolute;
@@ -152,8 +159,15 @@ span {
 }
 
 .this-scores:hover,
-#user-bag:hover {
+#this-bag:hover,
+#this-log:hover {
   text-decoration: underline;
+}
+
+.event-log {
+  color: white;
+  font-size: 0.6em;
+  font-family: 'Cutive Mono', monospace;
 }
 
 #game {

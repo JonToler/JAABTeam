@@ -39,7 +39,8 @@
         <span class="this-name">Player: </span>
         <span class="this-type">Type: </span>
         <span class="this-scores">Status</span>//
-        <span id="this-bag">Tools</span>
+        <span id="this-bag">Tools </span>//
+        <span id="this-log">Event-log</span>
       </div>
   <!-- HIDDEN user scores // showScore(); -->
       <div id="user-score">
@@ -51,12 +52,13 @@
       <div id="user-bag">
         <ul></ul>
       </div>
-  <!-- Start of game -->
+  <!-- User Event Log -->
       <div class="event-log">
+        <h3>Event Log:</h3>
         <ul></ul>
       </div>
+  <!-- Start of game -->
       <div id="game">
-    <!---userAvatarImage-->
    <!-- Items and objects in the room // roomInventory(); -->
         <div id="room-inventory">
           <h2>Items in room:</h2>
@@ -65,6 +67,10 @@
         <div id="interact-options">
           <h3 id="option1" class="option">Pick lock</h3>
           <h3 id="option2" class="option">Use hammer</h3>
+        </div>
+        <div id="encounter-options">
+          <h3 id="option3" class="option">Cast Spell</h3>
+          <h3 id="option4" class="option">Melee Attack</h3>
         </div>
         <div class="user-avatar">
           <img id="door-interact" src="img/door.png"/>
