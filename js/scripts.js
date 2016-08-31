@@ -205,7 +205,7 @@ $(document).ready(function() {
   $('#option1').click(function() {
     $('#event-log ul').append("<li>" + currentRoom.doors[1].pickLock(newUser) + "</li>");
     if (!currentRoom.doors[1].isLocked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative) + "</li>");
+      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
     };
     showScore();
   });
@@ -213,7 +213,7 @@ $(document).ready(function() {
   $('#option2').click(function() {
     $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
     if (!currentRoom.doors[1].isLocked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative) + "</li>");
+      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
     };
     showScore();
   });
