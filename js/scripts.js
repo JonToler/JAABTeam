@@ -212,6 +212,7 @@ $(document).ready(function() {
       $('.this-type').append(newUser.userChar);
       $('.narrative').append(currentRoom.narrative);
       $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
+      $('.monsters').prepend("<img src=" + newUser.userAvatarImage + ">");
       showScore();
       $('#user-info').slideDown();
       $('#game').fadeIn('slow');
