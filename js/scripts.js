@@ -53,7 +53,7 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.power = dmgOutput;
   this.creatureNarrative = creatureNarrative;
   this.isDead = function() {if (this.power <= 0){return true} else {return false};};
-  this.monsterImage = this.monsterImgSelector();
+ // this.monsterImage = this.monsterImgSelector();
   this.attackCreature = function(user, attackType){
     var hit = false;
     if (attackType === "strength"){
@@ -146,7 +146,7 @@ $(document).ready(function() {
       $('#room-inventory').addClass('show');
       $("#room-inventory select").append("<option>" + "<div id='index'>" + i + "</div>" + currentRoom.items[i].itemName + ": " + currentRoom.items[i].itemNarrative + "</option>");
     };
-    $('#roomInventory').show();
+    $('#room-inventory').addClass('show');
   };
 
   $('#search').click(function() {
@@ -156,7 +156,7 @@ $(document).ready(function() {
    // $('#search').fadeOut();
     setTimeout(function() {
       $('.narrative_2').show();
-      $('#object-image img').show();
+      $('#door-interact').show();
     }, 900);
     setTimeout(function() {
       roomInventory();
@@ -179,12 +179,12 @@ $(document).ready(function() {
     showScore();
   });
 
-  $('#object-image').click(function() {
+  $('#door-interact').click(function() {
+    $('#room-inventory').removeClass('show');
     $('#interact-options').css({
       'display':'block'
     });
-    $('#room-inventory').hide();
-  });
+  })
 
   $('.option').show();
   $('#option1').click(function() {
@@ -231,7 +231,7 @@ $(document).ready(function() {
       $('.this-type').append(newUser.userChar);
       $('.narrative').append(currentRoom.narrative);
       $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
-      $('.monsters').prepend("<img src=" + newUser.userAvatarImage + ">");
+      $('.monsters').prepend("<img src="  + newUser.monsterImage + ">");
       showScore();
       $('#user-info').slideDown();
       $('#game').fadeIn('slow');

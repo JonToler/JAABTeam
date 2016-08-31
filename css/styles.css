@@ -163,14 +163,16 @@ span {
   font-family: 'Cutive Mono', monospace;
   font-size: 0.9em;
   margin-left: 20%;
+  padding: 20px;
 }
- 
-#object-image img {
+
+#game #door-interact {
   width: 200px;
   height: auto;
   display: none;
   cursor: pointer;
-  float: right;
+  display: inline-flex;
+  display: none;
 }
 
 .narrative {
@@ -200,9 +202,14 @@ span {
   visibility: hidden;
 }
 
-#interact-options {
+#interact-options{
   display: none;
   z-index: 5;
+  font-size: 1.2em;
+}
+
+#interact-options h3:hover {
+  text-decoration: underline;
 }
 
 #option1,
@@ -224,6 +231,10 @@ span {
 
 #room-inventory select {
   width: 200px;
+}
+
+.monsters {
+  display: none;
 }
 
 .hide {
