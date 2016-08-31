@@ -13,11 +13,9 @@ function User(name, creatureType) {
     for (i=0; i<this.userInventory.length; i++) {
       if (this.userInventory[i].itemName===item){
         return true;
-    }
-      else {
-        return false;
       }
     }
+    return false;
   }
 };
 /*---avatar---*/
@@ -177,8 +175,51 @@ $(document).ready(function() {
     $('#roomInventory').show();
   };
 
+  /* ------- Introduction Form (userName, usrCreature) ---------- */
+  setTimeout(function(){
+    $("#begin").fadeIn();
+    $("#begin").animate({
+      "height":"350px",
+  },500);
+  },1500);
+
+  setTimeout(function() {
+    $('#form-content').slideDown(700);
+  },3000);
+/* ------------ Form on click event listener --------- */
+  $('#begin-button').click(function(event) {
+    event.preventDefault();
+    var userName = $('#user-name').val();
+    var userChar = $('#user-char').val();
+    newUser = new User(userName, userChar);
+    currentRoom = new Room();
+    $('#form-content').slideUp(400);
+    $('form#begin').fadeOut(600);
+    setTimeout(function() {
+      $('.this-name').append(newUser.userName);
+      $('.this-type').append(newUser.userChar);
+      $('.narrative').append(currentRoom.narrative);
+      $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
+      $('.monsters').prepend("<img src="  + newUser.monsterImage + ">");
+      showScore();
+      $('#user-info').slideDown();
+      $('#game').fadeIn('slow');
+    },900);
+  });
+
   $('#search').click(function() {
     roomInventory();
+    // When search is clicked, doorNarrative.show();
+    //This is a placeholder:
+    $('.narrative, #search').fadeOut();
+   // $('#search').fadeOut();
+    setTimeout(function() {
+      $('.narrative_2').show();
+      $('#door-interact').show();
+    }, 900);
+    setTimeout(function() {
+      roomInventory();
+    }, 1200);
   });
 
   $("#room-inventory select").change(function(){
@@ -195,13 +236,6 @@ $(document).ready(function() {
     showScore();
   });
 
-<<<<<<< HEAD
-  $('.option').show();
-  $('#option1').click(function() {
-    $('#event-log ul').append("<li>" + currentRoom.doors[1].pickLock(newUser) + "</li>");
-    if (!currentRoom.doors[1].isLocked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
-=======
   $('#door-interact').click(function() {
     $('#room-inventory').removeClass('show');
     $('#interact-options').css({
@@ -213,34 +247,27 @@ $(document).ready(function() {
     $('.event-log ul').append("<li>" + currentRoom.doors[0].pickLock(newUser) + "</li>");
     if (!currentRoom.doors[0].locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
+      $('.event-outcome ul').text("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
       monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
-      console.log(monster);
       $('#interact-options').fadeOut();
->>>>>>> 41a9d7519f59ace2c069c8251be89bbb4970b5d4
     };
     showScore();
   });
 
   $('#option2').click(function() {
-<<<<<<< HEAD
-    $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
-    if (!currentRoom.doors[1].isLocked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
-=======
     $('.event-log ul').append("<li>" + currentRoom.doors[0].breakDoor(newUser) + "</li>");
     if (!currentRoom.doors[0].locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
+      $('.event-outcome ul').text("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
       monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
-      console.log(monster);
       $('#interact-options').fadeOut();
->>>>>>> 41a9d7519f59ace2c069c8251be89bbb4970b5d4
     };
     showScore();
   });
 
-  $("#option3").click(function(){
-    $('.event-log ul').append("<li>" + currentRoom.creatures[2].pickLock(newUser) + "</li>");
-  })
+  // $("#option3").click(function(){
+  //   $('.event-log ul').append("<li>" + currentRoom.creatures[2].pickLock(newUser) + "</li>");
+  // })
 
   $('.this-scores').click(function() {
     $('#user-bag').hide();
@@ -251,13 +278,6 @@ $(document).ready(function() {
     $('#user-score').hide();
     $('#user-bag').slideToggle();
   });
-/* ------- Introduction Form (userName, usrCreature) ---------- */
-  setTimeout(function(){
-    $("#begin").fadeIn();
-    $("#begin").animate({
-      "height":"350px",
-  },700);
-  },1500);
 
   setTimeout(function() {
     $('#form-content').slideDown(700);
@@ -280,5 +300,9 @@ $(document).ready(function() {
       $('#user-info').slideDown();
       $('#game').fadeIn('slow');
     },900);
+  $('#this-log, .event-log p').click(function() {
+    $('#user-bag, #user-score').hide();
+    $('.event-log').fadeToggle("fast");
+    $('#game').fadeToggle("fast");
   });
 });
