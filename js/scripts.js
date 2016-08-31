@@ -1,3 +1,4 @@
+/*---backend---*/
 function User(name, creatureType) {
   this.userName = name;
   this.userChar = creatureType;
@@ -8,9 +9,13 @@ function User(name, creatureType) {
   this.userPosition = [];
   this.userInventory = [];
 };
-
+/*---avatar---*/
 User.prototype.avatarImgSelector = function() {
   return "img/avatar/" + this.userChar.toLowerCase() + ".png";
+}
+/*---monsters---*/
+User.prototype.monsterImgSelector = function() {
+  return "img/monsters/" + this.userChar.toLowerCase() + ".png";
 }
 
 function Room() {
