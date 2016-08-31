@@ -31,9 +31,9 @@ function Room() {
   this.eastPassable = false;
   this.doors = [new Door("northPassable", "image")];
   this.items = [
-    new Item("Lockpick", "intellect", "It looks awfully rusty!"),
-    new Item("Hammer", "strength", "Looks like it's been used a time or two!"),
-    new Item("Book", "intellect", "Difficult, but you can read a few lines under the thick dust!")
+    new Item("lockpick", "intellect", "Select to pick up! It looks awfully rusty!"),
+    new Item("hammer", "strength", "Select to pick up! Looks like it's been used a time or two!"),
+    new Item("book", "intellect", "Select to pick up! Difficult, but you can read a few lines under the thick dust!")
   ];
   this.creatures = [
     new Creature("ghost" , 4, "OoOo a ghost has appeared! Cast a spell or fight it?"),
@@ -90,7 +90,7 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.power = dmgOutput;
   this.creatureNarrative = creatureNarrative;
   this.isDead = function() {if (this.power <= 0){return true} else {return false};};
- // this.monsterImage = this.monsterImgSelector();
+  // this.monsterImage = this.monsterImgSelector();
   this.attackCreature = function(user, attackType){
     var hit = false;
     if (attackType === "strength"){
@@ -104,7 +104,7 @@ function Creature(creatureName, dmgOutput, creatureNarrative) {
       return "Hit!";
     }
     else {
-      return "Miss!"
+      return "Miss!";
     }
   }
 };
@@ -169,9 +169,9 @@ $(document).ready(function() {
     $("#room-inventory select").append("<option>Please select an item</option>")
     for (i=0;i<currentRoom.items.length;i++) {
       $('#room-inventory').addClass('show');
-      $("#room-inventory select").append("<option>" + "<div id='index'>" + i + "</div>" + currentRoom.items[i].itemName + ": " + currentRoom.items[i].itemNarrative + "</option>");
+      $("#room-inventory select").append("<option>" + i + " " + currentRoom.items[i].itemName + ": " + currentRoom.items[i].itemNarrative + "</option>");
     };
-    $('#room-inventory').addClass('show');
+    $('#roomInventory').show();
   };
 
   /* ------- Introduction Form (userName, usrCreature) ---------- */
@@ -207,6 +207,7 @@ $(document).ready(function() {
   });
 
   $('#search').click(function() {
+    roomInventory();
     // When search is clicked, doorNarrative.show();
     //This is a placeholder:
     $('.narrative, #search').fadeOut();
@@ -228,9 +229,7 @@ $(document).ready(function() {
     $("#room-inventory select").empty();
     $("#user-bag ul").empty();
     newUser.userInventory.forEach(function(item) {
-      $('#user-bag').hide();
       $('#user-bag ul').append("<li>" + item.itemName + "</li>");
-      $('#user-bag').slideDown();
     });
     roomInventory();
     showScore();
@@ -247,6 +246,7 @@ $(document).ready(function() {
     $('.event-log ul').append("<li>" + currentRoom.doors[0].pickLock(newUser) + "</li>");
     if (!currentRoom.doors[0].locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
+      $('.event-outcome ul').text("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
       monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
       $('#interact-options').fadeOut();
       $('#encounter-options').css({
@@ -260,6 +260,7 @@ $(document).ready(function() {
     $('.event-log ul').append("<li>" + currentRoom.doors[0].breakDoor(newUser) + "</li>");
     if (!currentRoom.doors[0].locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
+      $('.event-outcome ul').text("<li>" + currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative + "</li>");
       monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
       $('#interact-options').fadeOut();
       $('#encounter-options').css({
@@ -271,7 +272,7 @@ $(document).ready(function() {
 
   $("#option3").click(function(){
     $('.event-log ul').append("<li>" +  + "</li>");
-  
+
   })
 
   $('.this-scores').click(function() {
@@ -284,6 +285,28 @@ $(document).ready(function() {
     $('#user-bag').slideToggle();
   });
 
+  setTimeout(function() {
+    $('#form-content').slideDown(700);
+  },3000);
+/* ------------ Form on click event listener --------- */
+  $('#begin-button').click(function(event) {
+    event.preventDefault();
+    var userName = $('#user-name').val();
+    var userChar = $('#user-char').val();
+    newUser = new User(userName, userChar);
+    currentRoom = new Room();
+    $('#form-content').slideUp(600);
+    $('form#begin').fadeOut(800);
+    setTimeout(function() {
+      $('.this-name').append(newUser.userName);
+      $('.this-type').append(newUser.userChar);
+      $('.narrative').append(currentRoom.narrative);
+      $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
+      showScore();
+      $('#user-info').slideDown();
+      $('#game').fadeIn('slow');
+    },900);
+  });
   $('#this-log, .event-log p').click(function() {
     $('#user-bag, #user-score').hide();
     $('.event-log').fadeToggle("fast");
