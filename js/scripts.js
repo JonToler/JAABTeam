@@ -177,8 +177,8 @@ $(document).ready(function() {
   };
 
   $('#search').click(function() {
-    // When search is clicked, doorNarrative.show(); 
-    //This is a placeholder: 
+    // When search is clicked, doorNarrative.show();
+    //This is a placeholder:
     $('.narrative, #search').fadeOut();
    // $('#search').fadeOut();
     setTimeout(function() {
@@ -214,17 +214,30 @@ $(document).ready(function() {
   })
 
   $('#option1').click(function() {
+<<<<<<< HEAD
     $('.event-log ul').append("<li>" + pickLock(newUser) + "</li>");
     if (!pickLock(newUser).locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
+=======
+    $('#event-log ul').append("<li>" + currentRoom.doors[1].pickLock(newUser) + "</li>");
+    if (!currentRoom.doors[1].isLocked) {
+      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative) + "</li>");
+>>>>>>> d0952aaee8803f13142a358d640c7968f7baed0c
     };
     showScore();
   });
 
   $('#option2').click(function() {
+<<<<<<< HEAD
     $('.event-log ul').append("<li>" + breakDoor(newUser) + "</li>");
     if (!breakDoor(newUser).locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
+=======
+    $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
+    if (!currentRoom.doors[1].isLocked) {
+      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
+
+>>>>>>> d0952aaee8803f13142a358d640c7968f7baed0c
     };
     showScore();
   });
