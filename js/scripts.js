@@ -13,10 +13,7 @@ function User(name, creatureType) {
 User.prototype.avatarImgSelector = function() {
   return "img/avatar/" + this.userChar.toLowerCase() + ".png";
 }
-/*---monsters---*/
-User.prototype.monsterImgSelector = function() {
-  return "img/monsters/" + this.userChar.toLowerCase() + ".png";
-}
+
 
 function Room() {
   this.narrative = ["You've entered a dimly lit room with a fog crawling in through the cracks on the west wall. You don't have much time! Search for some tools!"];
@@ -47,13 +44,19 @@ function Item(itemName, itemTrait, itemNarrative) {
   this.itemTrait = itemTrait;
   this.itemNarrative = itemNarrative;
 }
-
+/*---monsters---*/
 function Creature(creatureName, dmgOutput, creatureNarrative) {
   this.creatureName = creatureName;
   this.dmgOutput = dmgOutput;
   this.creatureNarrative = creatureNarrative;
+  this.monsterImage = this.monsterImgSelector();
 }
 
+User.prototype.monsterImgSelector = function() {
+  return "img/monsters/" + this.creatureName.toLowerCase() + ".png";
+}
+
+/*---Rooms---*/
 Room.prototype.interact = function(userInventory, item) {
   for (i=0; i < this.items.length; i++){
     if (this.items[i].itemName === item){
