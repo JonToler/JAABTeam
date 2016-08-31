@@ -176,9 +176,41 @@ $(document).ready(function() {
     $('#room-inventory').addClass('show');
   };
 
+  /* ------- Introduction Form (userName, usrCreature) ---------- */
+  setTimeout(function(){
+    $("#begin").fadeIn();
+    $("#begin").animate({
+      "height":"350px",
+  },500);
+  },1500);
+
+  setTimeout(function() {
+    $('#form-content').slideDown(700);
+  },3000);
+/* ------------ Form on click event listener --------- */
+  $('#begin-button').click(function(event) {
+    event.preventDefault();
+    var userName = $('#user-name').val();
+    var userChar = $('#user-char').val();
+    newUser = new User(userName, userChar);
+    currentRoom = new Room();
+    $('#form-content').slideUp(400);
+    $('form#begin').fadeOut(600);
+    setTimeout(function() {
+      $('.this-name').append(newUser.userName);
+      $('.this-type').append(newUser.userChar);
+      $('.narrative').append(currentRoom.narrative);
+      $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
+      $('.monsters').prepend("<img src="  + newUser.monsterImage + ">");
+      showScore();
+      $('#user-info').slideDown();
+      $('#game').fadeIn('slow');
+    },900);
+  });
+
   $('#search').click(function() {
-    // When search is clicked, doorNarrative.show();
-    //This is a placeholder:
+    // When search is clicked, doorNarrative.show(); 
+    //This is a placeholder: 
     $('.narrative, #search').fadeOut();
    // $('#search').fadeOut();
     setTimeout(function() {
@@ -214,30 +246,17 @@ $(document).ready(function() {
   })
 
   $('#option1').click(function() {
-<<<<<<< HEAD
     $('.event-log ul').append("<li>" + pickLock(newUser) + "</li>");
     if (!pickLock(newUser).locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative + "</li>");
-=======
-    $('#event-log ul').append("<li>" + currentRoom.doors[1].pickLock(newUser) + "</li>");
-    if (!currentRoom.doors[1].isLocked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[1].creatureNarrative) + "</li>");
->>>>>>> d0952aaee8803f13142a358d640c7968f7baed0c
     };
     showScore();
   });
 
   $('#option2').click(function() {
-<<<<<<< HEAD
     $('.event-log ul').append("<li>" + breakDoor(newUser) + "</li>");
     if (!breakDoor(newUser).locked) {
       $('.event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
-=======
-    $('#event-log ul').append("<li>" + currentRoom.doors[1].breakDoor(newUser) + "</li>");
-    if (!currentRoom.doors[1].isLocked) {
-      $('#event-log ul').append("<li>" + currentRoom.creatures[2].creatureNarrative + "</li>");
-
->>>>>>> d0952aaee8803f13142a358d640c7968f7baed0c
     };
     showScore();
   });
@@ -251,35 +270,10 @@ $(document).ready(function() {
     $('#user-score').hide();
     $('#user-bag').slideToggle();
   });
-/* ------- Introduction Form (userName, usrCreature) ---------- */
-  setTimeout(function(){
-    $("#begin").fadeIn();
-    $("#begin").animate({
-      "height":"350px",
-  },700);
-  },1500);
 
-  setTimeout(function() {
-    $('#form-content').slideDown(700);
-  },3000);
-/* ------------ Form on click event listener --------- */
-  $('#begin-button').click(function(event) {
-    event.preventDefault();
-    var userName = $('#user-name').val();
-    var userChar = $('#user-char').val();
-    newUser = new User(userName, userChar);
-    currentRoom = new Room();
-    $('#form-content').slideUp(600);
-    $('form#begin').fadeOut(800);
-    setTimeout(function() {
-      $('.this-name').append(newUser.userName);
-      $('.this-type').append(newUser.userChar);
-      $('.narrative').append(currentRoom.narrative);
-      $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
-      $('.monsters').prepend("<img src="  + newUser.monsterImage + ">");
-      showScore();
-      $('#user-info').slideDown();
-      $('#game').fadeIn('slow');
-    },900);
+  $('#this-log, .event-log p').click(function() {
+    $('#user-bag, #user-score').hide();
+    $('.event-log').fadeToggle("fast");
+    $('#game').fadeToggle("fast");
   });
 });
