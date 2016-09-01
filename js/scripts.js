@@ -237,7 +237,7 @@ $(document).ready(function() {
       'display':'block'
     });
   };
-  
+
   function monsterAttack () {
     $('.monsters .monster-health').text("Creature's health / power: " + currentRoom.creatures[monsterIndex].power)
     if (currentRoom.creatures[monsterIndex].isDead()) {
@@ -249,7 +249,7 @@ $(document).ready(function() {
   }
 
   $('#option1').click(function() {
-    $('.event-outcome h3').text(currentRoom.doors[0].pickLock(newUser));
+    $('.event-outcome h2').text(currentRoom.doors[0].pickLock(newUser));
     if (!currentRoom.doors[0].locked) {
       doorUnlocked();
     };
@@ -257,7 +257,7 @@ $(document).ready(function() {
   });
 
   $('#option2').click(function() {
-    $('.event-outcome h3').text(currentRoom.doors[0].breakDoor(newUser));
+    $('.event-outcome h2').text(currentRoom.doors[0].breakDoor(newUser));
     if (!currentRoom.doors[0].locked) {
       doorUnlocked();
     };
@@ -267,7 +267,7 @@ $(document).ready(function() {
   $("#option3").click(function(){
     var fight = currentRoom.creatures[monsterIndex].attackCreature(newUser, "Intellect");
     debugger;
-    $('.event-outcome h3').text(fight);
+    $('.event-outcome h2').text(fight);
     if (fight === "Hit!") {
       monsterAttack();
     }
@@ -275,7 +275,7 @@ $(document).ready(function() {
 
   $("#option4").click(function(){
     var fight = currentRoom.creatures[monsterIndex].attackCreature(newUser, "Strength");
-    $('.event-outcome h3').text(fight);
+    $('.event-outcome h2').text(fight);
     debugger;
 
     if (fight === "Hit!") {
