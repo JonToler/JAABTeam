@@ -232,10 +232,10 @@ $(document).ready(function() {
     $('#interact-options').fadeOut();
     $('#door-interact').fadeOut();
     $('.monsters').fadeIn();
-    $('.monsters').append("<img src=img/monsters/"  + currentRoom.creatures[monsterIndex].creatureName + ".png>");
     $('#encounter-options').css({
       'display':'block'
     });
+    $('.user-avatar').append("<img src=img/monsters/" + currentRoom.creatures[monsterIndex].creatureName + ".png>");
   };
 
   function monsterAttack () {
