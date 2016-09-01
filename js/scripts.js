@@ -8,20 +8,21 @@ function User(name, creatureType) {
   this.userHealth = 10;
   this.userPosition = [];
   this.userInventory = [];
-  this.isDead = function() {if (this.health <= 0){return true} else {return false};};
+  this.isDead = function() {if (this.userHealth <= 0){return true} else {return false};};
   this.hasItem = function(item) {
     for (i=0; i<this.userInventory.length; i++) {
       if (this.userInventory[i].itemName===item){
         return true;
       }
-    }
+    };
     return false;
-  }
+  };
 };
 /*---avatar---*/
 User.prototype.avatarImgSelector = function() {
   return "img/avatar/" + this.userChar.toLowerCase() + ".png";
-}
+};
+
 function Room() {
   this.narrative = ["You've entered a dimly lit room with a fog crawling in through the cracks on the west wall. You don't have much time! Search for some tools!"];
   this.eventNarrative = "eventNarrative";
@@ -113,9 +114,6 @@ Room.prototype.creatureDiceRoll = function() {
   return (Math.floor(Math.random() * this.creatures.length));
 };
 
-User.prototype.monsterImgSelector = function() {
-  return "img/monsters/" + this.creatureName.toLowerCase() + ".png";
-}
 /*---Rooms---*/
 Room.prototype.interact = function(userInventory, item) {
   for (i=0; i < this.items.length; i++){
@@ -157,7 +155,11 @@ $(document).ready(function() {
   var diceRoll;
   var newItem;
   // var currentRoom = new Room;
-  var monster = "";
+  var monsterIndex;
+
+  function monsterImgSelector() {
+    return "img/monsters/" + currentRoom.creatures[monsterIndex].creatureName.toLowerCase() + ".png";
+  };
 
   function showScore() {
     $('.this-health').text(newUser.userHealth);
@@ -222,14 +224,25 @@ $(document).ready(function() {
     });
   })
 
+  function monsterAttack () {
+    $('.monsters .monster-health').text("Creature's health / power: " + currentRoom.creatures[monsterIndex].power)
+    if (currentRoom.creatures[monsterIndex].isDead()) {
+      alert("Congratulations!!!! You have won!!");
+    } else {
+      alert("Keep attacking, you are damaging the monster!");
+    }
+  }
+
   $('#option1').click(function() {
-    $('.event-log ul').append("<li>" + currentRoom.doors[0].pickLock(newUser) + "</li>");
+    $('.event-outcome h3').text(currentRoom.doors[0].pickLock(newUser));
     if (!currentRoom.doors[0].locked) {
-      $('.narrative').text(currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative);
+      monsterIndex = currentRoom.creatureDiceRoll();
+      $('.narrative').text(currentRoom.creatures[monsterIndex].creatureNarrative);
       $('.narrative').fadeIn();
       $('.narrative_2').fadeOut();
-      monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
       $('#interact-options').fadeOut();
+      $('#door-interact').fadeOut();
+      $('.monsters').fadeIn();
       $('#encounter-options').css({
         'display':'block'
       });
@@ -238,13 +251,15 @@ $(document).ready(function() {
   });
 
   $('#option2').click(function() {
-    $('.event-log ul').append("<li>" + currentRoom.doors[0].breakDoor(newUser) + "</li>");
+    $('.event-outcome h3').text(currentRoom.doors[0].breakDoor(newUser));
     if (!currentRoom.doors[0].locked) {
-      $('.narrative').text(currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureNarrative);
+      monsterIndex = currentRoom.creatureDiceRoll();
+      $('.narrative').text(currentRoom.creatures[monsterIndex].creatureNarrative);
       $('.narrative').fadeIn();
       $('.narrative_2').fadeOut();
-      monster = currentRoom.creatures[currentRoom.creatureDiceRoll()].creatureName;
       $('#interact-options').fadeOut();
+      $('#door-interact').fadeOut();
+      $('.monsters').fadeIn();
       $('#encounter-options').css({
         'display':'block'
       });
@@ -253,9 +268,20 @@ $(document).ready(function() {
   });
 
   $("#option3").click(function(){
-    $('.event-log ul').append("<li>" +  + "</li>");
+    var fight = currentRoom.creatures[monsterIndex].attackCreature(newUser, "Intellect");
+    $('.event-outcome h3').text(fight);
+    if (fight === "Hit!") {
+      monsterAttack();
+    }
+  });
 
-  })
+  $("#option4").click(function(){
+    var fight = currentRoom.creatures[monsterIndex].attackCreature(newUser, "Strength");
+    $('.event-outcome h3').text(fight);
+    if (fight === "Hit!") {
+      monsterAttack();
+    }
+  });
 
   $('.this-scores').click(function() {
     $('#user-bag').hide();
