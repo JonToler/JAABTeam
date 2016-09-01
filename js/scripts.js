@@ -224,6 +224,20 @@ $(document).ready(function() {
     });
   })
 
+  function doorUnlocked() {
+    monsterIndex = currentRoom.creatureDiceRoll();
+    $('.narrative').text(currentRoom.creatures[monsterIndex].creatureNarrative);
+    $('.narrative').fadeIn();
+    $('.narrative_2').fadeOut();
+    $('#interact-options').fadeOut();
+    $('#door-interact').fadeOut();
+    $('.monsters').fadeIn();
+    $('.monsters').append("<img src=img/monsters/"  + currentRoom.creatures[monsterIndex].creatureName + ".png>");
+    $('#encounter-options').css({
+      'display':'block'
+    });
+  };
+  
   function monsterAttack () {
     $('.monsters .monster-health').text("Creature's health / power: " + currentRoom.creatures[monsterIndex].power)
     if (currentRoom.creatures[monsterIndex].isDead()) {
@@ -236,16 +250,7 @@ $(document).ready(function() {
   $('#option1').click(function() {
     $('.event-outcome h3').text(currentRoom.doors[0].pickLock(newUser));
     if (!currentRoom.doors[0].locked) {
-      monsterIndex = currentRoom.creatureDiceRoll();
-      $('.narrative').text(currentRoom.creatures[monsterIndex].creatureNarrative);
-      $('.narrative').fadeIn();
-      $('.narrative_2').fadeOut();
-      $('#interact-options').fadeOut();
-      $('#door-interact').fadeOut();
-      $('.monsters').fadeIn();
-      $('#encounter-options').css({
-        'display':'block'
-      });
+      doorUnlocked();
     };
     showScore();
   });
@@ -253,22 +258,14 @@ $(document).ready(function() {
   $('#option2').click(function() {
     $('.event-outcome h3').text(currentRoom.doors[0].breakDoor(newUser));
     if (!currentRoom.doors[0].locked) {
-      monsterIndex = currentRoom.creatureDiceRoll();
-      $('.narrative').text(currentRoom.creatures[monsterIndex].creatureNarrative);
-      $('.narrative').fadeIn();
-      $('.narrative_2').fadeOut();
-      $('#interact-options').fadeOut();
-      $('#door-interact').fadeOut();
-      $('.monsters').fadeIn();
-      $('#encounter-options').css({
-        'display':'block'
-      });
+      doorUnlocked();
     };
     showScore();
   });
 
   $("#option3").click(function(){
     var fight = currentRoom.creatures[monsterIndex].attackCreature(newUser, "Intellect");
+    debugger;
     $('.event-outcome h3').text(fight);
     if (fight === "Hit!") {
       monsterAttack();
@@ -278,6 +275,8 @@ $(document).ready(function() {
   $("#option4").click(function(){
     var fight = currentRoom.creatures[monsterIndex].attackCreature(newUser, "Strength");
     $('.event-outcome h3').text(fight);
+    debugger;
+
     if (fight === "Hit!") {
       monsterAttack();
     }
@@ -310,7 +309,6 @@ $(document).ready(function() {
       $('.this-type').append(newUser.userChar);
       $('.narrative').text(currentRoom.narrative);
       $('.user-avatar').prepend("<img src=" + newUser.userAvatarImage + ">");
-      $('.monsters').prepend("<img src="  + newUser.monsterImage + ">");
       showScore();
       $('#user-info').slideDown();
       $('#game').fadeIn('slow');
