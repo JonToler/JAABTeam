@@ -34,10 +34,41 @@ h1 {
   letter-spacing: 2px;
 }
 
+h2 {
+  color: white;
+  text-align: center;
+  font-family: sans-serif; font-size: 1em;
+  line-height: 1.2em
+}
+
+h4 {
+  text-align: center;
+  font-family: monospace;
+  font-size: 1.8em;
+  font-weight: 900;
+  color: white;
+  text-shadow: 4px 4px purple;
+  letter-spacing: 2px;
+}
+
+.pick{
+  color: black;
+}
+
 span {
   font-weight: bold;
   text-align: center;
 }
+
+#winning {
+  display: none;
+  color: white;
+  width: 60%;
+  margin-left: 20%;
+  height: 500px;
+  margin-top: 25%;
+}
+
 
 #begin {
   display: none;

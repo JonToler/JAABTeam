@@ -227,9 +227,10 @@ $(document).ready(function() {
   function monsterAttack () {
     $('.monsters .monster-health').text("Creature's health / power: " + currentRoom.creatures[monsterIndex].power)
     if (currentRoom.creatures[monsterIndex].isDead()) {
-      alert("Congratulations!!!! You have won!!");
+      $('.container').hide();
+      $('#winning').show();
     } else {
-      alert("Keep attacking, you are damaging the monster!");
+      alert("Keep attacking, you are killing the monster!");
     }
   }
 

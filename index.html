@@ -13,12 +13,18 @@
     <title>Team JAAB's Awesome text adventure!</title>
   </head>
   <body>
+    <div id="winning">
+      <h4>CONGRATS! You won!</h4>
+      <h2>But don't get too excited because we are evil tricksters and you're actually trapped in space! I mean honestly, did you not see the billions of stars around you!?</h2>
+      <h2>OH! Look out behind you, the unknown is coming..</h2>
+      <h2>Good luck! We're off to enjoy our 4-day weekend, cheers!</h2>
+    </div>
     <div class="container">
       <h1>JAABteam!</h1>
   <!-- Form for user input -->
      <form id="begin" class="row">
         <div id="form-content">
-          <h2 class="col-md-12">Pick Your Character</h2>
+          <h2 class="col-md-12 pick">Pick Your Character</h2>
           <div class="form-group">
             <label for="user-name"class="col-md-12">Enter your name:</label>
             <input id="user-name" type="text" class="form-control" class="col-md-12">
@@ -41,7 +47,7 @@
         <p>Close</p>
       </div>
       <div class="event-outcome">
-        <h3></h3>
+        <h2></h2>
       </div>
   <!-- VISIBLE user information, top bar -->
       <div id="user-info">
@@ -81,7 +87,7 @@
         </div>
         <!--monsterAppears-->
         <div class="monsters">
-          <h3 class="monster-health"></h3>
+          <h2 class="monster-health"></h2>
         </div>
         <p class="narrative"></p>
         <button id="search" type="button" class="btn btn-default">Search</button>
